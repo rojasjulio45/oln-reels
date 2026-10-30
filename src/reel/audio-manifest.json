@@ -1,0 +1,42 @@
+{
+  "hookLinkedIn": {
+    "file": "reel/narration/hookLinkedIn.mp3",
+    "durationInSeconds": 6.243
+  },
+  "hookInstagram": {
+    "file": "reel/narration/hookInstagram.mp3",
+    "durationInSeconds": 7.236
+  },
+  "ley": {
+    "file": "reel/narration/ley.mp3",
+    "durationInSeconds": 6.531
+  },
+  "mision": {
+    "file": "reel/narration/mision.mp3",
+    "durationInSeconds": 4.258
+  },
+  "puertas": {
+    "file": "reel/narration/puertas.mp3",
+    "durationInSeconds": 7.367
+  },
+  "proceso": {
+    "file": "reel/narration/proceso.mp3",
+    "durationInSeconds": 6.896
+  },
+  "grave": {
+    "file": "reel/narration/grave.mp3",
+    "durationInSeconds": 4.885
+  },
+  "reto": {
+    "file": "reel/narration/reto.mp3",
+    "durationInSeconds": 10.998
+  },
+  "ctaLinkedIn": {
+    "file": "reel/narration/ctaLinkedIn.mp3",
+    "durationInSeconds": 3.709
+  },
+  "ctaInstagram": {
+    "file": "reel/narration/ctaInstagram.mp3",
+    "durationInSeconds": 4.075
+  }
+}

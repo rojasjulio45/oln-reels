@@ -1,0 +1,46 @@
+{
+  "name": "remotion_video",
+  "version": "1.0.0",
+  "description": "Video explicativo: ¿Cómo funcionan las OLN en Chile?",
+  "repository": {},
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.539",
+    "@remotion/transitions": "^4.0.539",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.539"
+  },
+  "devDependencies": {
+    "@iconify-json/fluent-emoji-flat": "^1.2.6",
+    "@remotion/eslint-config-flat": "4.0.539",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "d3-geo": "^3.1.1",
+    "eslint": "10.12.0",
+    "prettier": "3.8.1",
+    "topojson-client": "^3.1.0",
+    "typescript": "5.9.3",
+    "world-atlas": "^2.0.2"
+  },
+  "scripts": {
+    "dev": "node scripts/build-reel-audio.mjs && remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "reel:assets": "node scripts/build-reel-assets.mjs",
+    "reel:audio": "node scripts/build-reel-audio.mjs",
+    "reel:voice": "python3 scripts/generate-voice.py && node scripts/build-reel-audio.mjs",
+    "render:reels": "node scripts/build-reel-audio.mjs && remotion render src/index.ts ReelLinkedIn out/master-linkedin.mp4 --crf=14 && remotion render src/index.ts ReelInstagram out/master-instagram.mp4 --crf=14 && scripts/compress-reels.sh",
+    "tts": "node scripts/generate-tts.mjs",
+    "render": "remotion render src/index.ts OLNChile out/oln-chile.mp4",
+    "compress:reels": "scripts/compress-reels.sh"
+  },
+  "allowScripts": {
+    "esbuild": false
+  }
+}

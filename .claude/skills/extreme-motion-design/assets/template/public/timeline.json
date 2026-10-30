@@ -1,0 +1,69 @@
+{
+ "fps": 30,
+ "width": 1920,
+ "height": 1080,
+ "duration": 11.3333,
+ "audio": "audio/mix.wav",
+ "narration": {
+  "file": "audio/narration.wav",
+  "start": 0,
+  "gain_db": 0
+ },
+ "music": {
+  "gain_db": -14,
+  "duck_db": -10,
+  "fade_in": 0.4,
+  "fade_out": 1.2,
+  "file": "audio/music.wav"
+ },
+ "scenes": [
+  {
+   "id": "kinetic",
+   "start": 0.0,
+   "end": 2.5
+  },
+  {
+   "id": "morph-rig",
+   "start": 2.5,
+   "end": 6.6333
+  },
+  {
+   "id": "loop-ui",
+   "start": 6.6333,
+   "end": 11.3333
+  }
+ ],
+ "sfx": [
+  {
+   "at": 2.25,
+   "type": "whoosh",
+   "gain_db": -15,
+   "dur": 0.5
+  },
+  {
+   "at": 3.5,
+   "type": "pop",
+   "gain_db": -17
+  },
+  {
+   "at": 5.133,
+   "type": "pop",
+   "gain_db": -17
+  },
+  {
+   "at": 6.383,
+   "type": "whoosh",
+   "gain_db": -15,
+   "dur": 0.5
+  },
+  {
+   "at": 8.267,
+   "type": "click",
+   "gain_db": -11
+  }
+ ],
+ "loudness": {
+  "lufs": -14,
+  "tp": -3.0
+ }
+}
