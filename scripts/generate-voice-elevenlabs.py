@@ -21,7 +21,7 @@ PERFORMANCE = {
     # (text, stability): 0.5 = natural/even, 0.0 = creative/expressive
     "hookLinkedIn": ("Hasta 300 casos por cada profesional. Así trabaja la oficina que protege a los niños de tu comuna.", 0.5),
     "hookInstagram": ("[curious] Si un niño de tu comuna está en riesgo... esta oficina debe actuar primero. Se llama Oficina Local de la Niñez.", 0.0),
-    "ley": ("Nacieron con la Ley veintiún mil cuatrocientos treinta, de 2022, y reemplazan a las antiguas Oficinas de Protección de Derechos.", 0.5),
+    "ley": ("Las Oficinas Locales de la Niñez nacieron con la Ley veintiún mil cuatrocientos treinta, de 2022, y reemplazan a las antiguas Oficinas de Protección de Derechos.", 0.5),
     "mision": ("[confident] Su misión es promover derechos, prevenir... y proteger.", 0.0),
     "puertas": ("Los casos a atender llegan por tres puertas: [excited] la familia, una alerta del colegio o del consultorio, ¡o un tribunal!", 0.0),
     "proceso": ("Luego, un gestor de casos evalúa, arma un plan con la familia y la conecta con el consultorio, el colegio y apoyo social.", 0.5),

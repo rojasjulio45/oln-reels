@@ -14,7 +14,7 @@ export const NARRATION = {
   // Instagram: if-you/situation hook, viewer as protagonist, claim lands by 1.5 s.
   hookInstagram:
     "Si un niño de *tu comuna* está en riesgo, esta oficina debe actuar primero. Se llama *Oficina Local de la Niñez*.",
-  ley: "Nacieron con la *Ley 21.430*, de 2022, y reemplazan a las antiguas *Oficinas de Protección de Derechos*.",
+  ley: "Las *Oficinas Locales de la Niñez* nacieron con la *Ley 21.430*, de 2022, y reemplazan a las antiguas *Oficinas de Protección de Derechos*.",
   mision: "Su misión es *promover* derechos, *prevenir* y *proteger*.",
   puertas:
     "Los casos a atender llegan por *tres puertas*: la *familia*, una *alerta* del colegio o del consultorio, o un *tribunal*.",
