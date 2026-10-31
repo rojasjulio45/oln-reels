@@ -34,7 +34,7 @@ Checklist de hook (`virality`) que cumplen las dos versiones:
 >
 > En Chile, según el último estudio de SENDA, casi la mitad de quienes bebieron el último mes se emborrachó al menos una vez. El problema no es el orden.
 >
-> Lo resumí en 55 segundos en el video, con un banco de ensayo dibujado pieza por pieza.
+> Lo resumí en menos de un minuto en el video, con un banco de ensayo dibujado pieza por pieza y las fuentes al pie de cada escena.
 >
 > ¿Qué mito sobre la resaca te enseñaron a ti?
 >
