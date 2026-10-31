@@ -1,0 +1,86 @@
+/* Bench tokens on top of the Anatomy light theme: paper matches the reel,
+   lines a touch heavier for a 1080 px frame, one blue for the liquid. */
+.iso[data-theme="light"] {
+  --anatomy-page: #fbfbfd;
+  --anatomy-card: #fbfbfd;
+  --anatomy-paper: #fbfbfd;
+  --anatomy-weight: 1.15px;
+  --anatomy-halo-opacity: 0.22;
+  --bench-liquid: #0071e3;
+  --bench-sediment: #3a2a1a;
+}
+.bench {
+  overflow: visible;
+}
+/* Glass: the wall lets the liquid, the float and the rod show through. */
+.bench-glass > .iso-fill {
+  fill: #ffffff;
+  fill-opacity: 0.34;
+}
+.bench-glass > .iso-shade {
+  fill-opacity: 0.42;
+}
+.bench-glass > .iso-top {
+  display: none;
+}
+.bench-glass > .iso-edge {
+  stroke: var(--anatomy-mid);
+}
+.bench-rim > .iso-fill,
+.bench-rim > .iso-shade {
+  fill-opacity: 0.9;
+}
+/* Liquid: a tint of the one accent, with its own soft shading. */
+.bench-liquid > .iso-fill {
+  fill: var(--bench-liquid);
+  fill-opacity: 0.16;
+}
+.bench-liquid > .iso-shade[data-shade="0"] {
+  fill: var(--bench-liquid);
+  fill-opacity: 0.16;
+}
+.bench-liquid > .iso-shade[data-shade="1"] {
+  fill: var(--bench-liquid);
+  fill-opacity: 0.11;
+}
+.bench-liquid > .iso-shade[data-shade="2"] {
+  fill: var(--bench-liquid);
+  fill-opacity: 0.07;
+}
+.bench-liquid > .iso-shade[data-shade="3"] {
+  fill: var(--bench-liquid);
+  fill-opacity: 0.04;
+}
+.bench-liquid > .iso-top {
+  fill: var(--bench-liquid);
+  fill-opacity: 0.22;
+}
+.bench-liquid > .iso-edge {
+  stroke: var(--bench-liquid);
+  stroke-opacity: 0.55;
+}
+.bench-stream > .iso-edge {
+  stroke-opacity: 0.35;
+}
+/* The dark spirit bottle: deeper greys, still monochrome. */
+.bench-dark > .iso-fill {
+  fill: #c9c9cd;
+}
+.bench-dark > .iso-shade[data-shade="0"] {
+  fill: #9a9aa0;
+}
+.bench-dark > .iso-shade[data-shade="1"] {
+  fill: #a9a9ae;
+}
+.bench-dark > .iso-shade[data-shade="2"] {
+  fill: #b9b9be;
+}
+.bench-dark > .iso-shade[data-shade="3"] {
+  fill: #c6c6cb;
+}
+.bench-dark > .iso-top {
+  fill: #d6d6da;
+}
+.bench-dark[data-lit] > .iso-top {
+  fill: #e4e4e8;
+}

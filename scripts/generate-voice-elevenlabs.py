@@ -1,4 +1,4 @@
-"""Narration for the reel with ElevenLabs v3 (voice "Jessica", playful/bright).
+"""Narration for the reel with ElevenLabs v3 (voice "Jessica", serene, presentation-like).
 
 Each beat has a performance version of its NARRATION text: same words, plus
 v3 audio tags and punctuation that drive the delivery. The API key is added
@@ -18,17 +18,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 VOICE = "cgSgspJ2msm6clMCkdW9"  # Jessica
 PERFORMANCE = {
-    # (text, stability): 0.5 = natural/even, 0.0 = creative/expressive
-    "hookLinkedIn": ("Hasta 300 casos por cada profesional. Así trabaja la oficina que protege a los niños de tu comuna.", 0.5),
-    "hookInstagram": ("[curious] Si un niño de tu comuna está en riesgo... esta oficina debe actuar primero. Se llama Oficina Local de la Niñez.", 0.0),
-    "ley": ("Las Oficinas Locales de la Niñez nacieron con la Ley veintiún mil cuatrocientos treinta, de 2022, y reemplazan a las antiguas Oficinas de Protección de Derechos.", 0.5),
-    "mision": ("[confident] Su misión es promover derechos, prevenir... y proteger.", 0.0),
-    "puertas": ("Los casos a atender llegan por tres puertas: [excited] la familia, una alerta del colegio o del consultorio, ¡o un tribunal!", 0.0),
-    "proceso": ("Luego, un gestor de casos evalúa, arma un plan con la familia y la conecta con el consultorio, el colegio y apoyo social.", 0.5),
-    "grave": ("[serious] Si el caso es grave, deriva a Protección Especializada o al tribunal de familia.", 0.0),
-    "reto": ("[determined] El reto: ¡cubrir las 346 comunas a más tardar en 2027! [sighs] Con gestores que en algunas comunas cargan... ¡300 casos!", 0.0),
-    "ctaLinkedIn": ("[curious] ¿En tu comuna ya funciona la Oficina Local de la Niñez? [cheerful] ¡Te leo en comentarios!", 0.0),
-    "ctaInstagram": ("[excited] ¡Guárdalo! [warm] Y compártelo con alguien que trabaje con niños.", 0.0),
+    # (text, stability): 0.5–0.6 = serene, presentation-like; lower only where the
+    # delivery should lift (hooks and closings). Acronyms are written as spoken.
+    "hookLinkedIn": ("Noventa personas bebieron cerveza y vino en los dos órdenes posibles. La resaca fue la misma.", 0.5),
+    "hookInstagram": ("[curious] ¿Cerveza y después vino te da más resaca? [confident] Un ensayo clínico dice que no.", 0.4),
+    "ensayo": ("Un ensayo clínico de 2019 lo probó con noventa personas: cerveza y luego vino, o al revés. La resaca fue la misma.", 0.55),
+    "realidad": ("[calm] Lo que importa es cuánto etanol entra... y cuánto alcanza a salir.", 0.5),
+    "higado": ("Tu hígado procesa cerca de un trago por hora. Si entra más rápido, el nivel sube.", 0.55),
+    "congeneres": ("Lo que sí influye: los congéneres. Las bebidas oscuras, como el whisky, suelen dejar peor resaca que el vodka.", 0.55),
+    "velocidad": ("También la velocidad, el estómago vacío, las burbujas, y dormir poco.", 0.55),
+    "porque": ("Y el mito parece cierto porque al mezclar se pierde la cuenta, y lo dulce esconde el alcohol.", 0.55),
+    "chile": ("En Chile, según Senda, casi la mitad de quienes bebieron el último mes se emborrachó al menos una vez.", 0.55),
+    "ctaLinkedIn": ("El orden no importa. La cantidad, sí. [warm] ¿Qué mito te enseñaron a ti? Te leo en comentarios.", 0.4),
+    "ctaInstagram": ("El orden no importa. La cantidad y el cómo, sí. [warm] Guárdalo para la próxima vez que alguien diga: no mezcles.", 0.4),
 }
 
 

@@ -1,60 +1,58 @@
 import audioManifest from "./audio-manifest.json";
 
-// Vertical reel for LinkedIn and Instagram (9:16). Two hooks and two CTAs
-// share the same body. *Asterisks* mark the words highlighted in captions;
+// Vertical reel for LinkedIn and Instagram (9:16): does mixing drinks, or
+// going up or down in strength, give a worse hangover? Two hooks and two
+// closings share the same body. *Asterisks* mark the key word of a phrase;
 // they are stripped before text-to-speech.
 export const REEL_FPS = 30;
 export const REEL_W = 1080;
 export const REEL_H = 1920;
 
 export const NARRATION = {
-  // LinkedIn: number-first line (F7) + plain-language explainer (F15), no question opener.
-  hookLinkedIn:
-    "Hasta *300* casos por cada profesional. Así trabaja la oficina que protege a los niños de *tu comuna*.",
-  // Instagram: if-you/situation hook, viewer as protagonist, claim lands by 1.5 s.
-  hookInstagram:
-    "Si un niño de *tu comuna* está en riesgo, esta oficina debe actuar primero. Se llama *Oficina Local de la Niñez*.",
-  ley: "Las *Oficinas Locales de la Niñez* nacieron con la *Ley 21.430*, de 2022, y reemplazan a las antiguas *Oficinas de Protección de Derechos*.",
-  mision: "Su misión es *promover* derechos, *prevenir* y *proteger*.",
-  puertas:
-    "Los casos a atender llegan por *tres puertas*: la *familia*, una *alerta* del colegio o del consultorio, o un *tribunal*.",
-  // At comuna level, health means the consultorio (CESFAM, primary care), not a hospital.
-  proceso:
-    "Luego, un *gestor de casos* evalúa, arma un *plan* con la familia y la conecta con el *consultorio*, el colegio y apoyo social.",
-  grave: "Si el caso es *grave*, deriva a *Protección Especializada* o al *tribunal de familia*.",
-  reto: "El reto: cubrir las *346 comunas* a más tardar en *2027*, con gestores que en algunas comunas cargan *300 casos*.",
-  // LinkedIn closes with a specific question (+3% vs. opening with one).
-  ctaLinkedIn: "¿En tu comuna ya funciona la Oficina Local de la Niñez? Te leo en *comentarios*.",
-  ctaInstagram: "*Guárdalo* y compártelo con alguien que trabaje con niños.",
+  // LinkedIn: number first, a statement, never a question.
+  hookLinkedIn: "*Noventa* personas bebieron cerveza y vino en los dos órdenes posibles. La resaca fue la *misma*.",
+  // Instagram: the viewer's own question, answered before 1.5 s.
+  hookInstagram: "¿*Cerveza* y después *vino* te da más resaca? Un ensayo clínico dice que *no*.",
+  ensayo: "Un ensayo clínico de 2019 lo probó con *noventa* personas: cerveza y luego vino, o al *revés*. La resaca fue la *misma*.",
+  realidad: "Lo que importa es *cuánto* etanol entra, y cuánto alcanza a *salir*.",
+  higado: "Tu hígado *procesa* cerca de *un trago* por hora. Si entra más rápido, el nivel *sube*.",
+  congeneres: "Lo que sí influye: los *congéneres*. Las bebidas *oscuras*, como el whisky, suelen dejar peor resaca que el vodka.",
+  velocidad: "También la *velocidad*, el estómago *vacío*, las *burbujas* y dormir *poco*.",
+  porque: "Y el mito parece cierto porque al *mezclar* se pierde la *cuenta*, y lo dulce esconde el alcohol.",
+  chile: "En Chile, según SENDA, casi la *mitad* de quienes bebieron el último mes se emborrachó al menos una vez.",
+  ctaLinkedIn: "El *orden* no importa. La *cantidad*, sí. ¿Qué mito te enseñaron a ti? Te leo en *comentarios*.",
+  ctaInstagram: "El *orden* no importa. La *cantidad* y el cómo, sí. *Guárdalo* para la próxima vez que alguien diga: no mezcles.",
 } as const;
 
 export type BeatKey = keyof typeof NARRATION;
 
 export const AUTHOR = "Julio Rojas";
 
-// Discreet per-beat source line under the author credit.
+// Footnote line per beat (small grey, like a keynote's legal line).
 export const SOURCES: Record<BeatKey, string> = {
-  hookLinkedIn: "Dato: OLN Los Ángeles · La Tribuna, 30/09/2026",
-  hookInstagram: "Ley 21.430 · BCN LeyChile",
-  ley: "Ley 21.430, publicada el 15/03/2022 · BCN LeyChile",
-  mision: "Ley 21.430 · Orientaciones técnicas OLN, Subsecretaría de la Niñez",
-  puertas: "Orientaciones técnicas OLN · Guía de instituciones NNA, 2025",
-  proceso: "Piloto OLN, Dipres · UNICEF Chile, Serie Protección Integral n.º 1",
-  grave: "Ley 21.430 · Servicio Nacional de Protección Especializada",
-  reto: "Ley 21.430, plazo de 5 años · La Tribuna, 30/09/2026",
-  ctaLinkedIn: "Fuentes: BCN · Subsecretaría de la Niñez · UNICEF Chile · Dipres · La Tribuna",
-  ctaInstagram: "Fuentes: BCN · Subsecretaría de la Niñez · UNICEF Chile · Dipres · La Tribuna",
+  hookLinkedIn: "¹ Köchling et al., American Journal of Clinical Nutrition, 2019",
+  hookInstagram: "¹ Köchling et al., American Journal of Clinical Nutrition, 2019",
+  ensayo: "¹ Köchling et al., AJCN 2019 · 90 participantes, cerveza lager y vino blanco",
+  realidad: "¹ Köchling et al., 2019 · NIAAA, Hangovers",
+  higado: "² NIAAA, Alcohol Metabolism · promedio; varía según la persona",
+  congeneres: "³ Rohsenow et al., Alcoholism: Clinical and Experimental Research, 2010 · Mayo Clinic · evidencia aún limitada",
+  velocidad: "⁴ NHS 111 Wales · Mayo Clinic · Roberts & Robinson, J. Forensic and Legal Medicine, 2007",
+  porque: "¹ Köchling et al., 2019 · The Conversation, Monday's medical myth",
+  chile: "⁵ SENDA, Décimo Sexto Estudio Nacional de Drogas en Población General, 2024 (publicado en 2025)",
+  ctaLinkedIn: "Fuentes: AJCN 2019 · NIAAA · Mayo Clinic · NHS · SENDA",
+  ctaInstagram: "Fuentes: AJCN 2019 · NIAAA · Mayo Clinic · NHS · SENDA",
 };
 
 export const VARIANTS = {
-  linkedin: ["hookLinkedIn", "ley", "mision", "puertas", "proceso", "grave", "reto", "ctaLinkedIn"],
-  instagram: ["hookInstagram", "ley", "mision", "puertas", "proceso", "grave", "reto", "ctaInstagram"],
+  linkedin: ["hookLinkedIn", "ensayo", "realidad", "higado", "congeneres", "velocidad", "porque", "chile", "ctaLinkedIn"],
+  instagram: ["hookInstagram", "ensayo", "realidad", "higado", "congeneres", "velocidad", "porque", "chile", "ctaInstagram"],
 } satisfies Record<string, BeatKey[]>;
 export type Variant = keyof typeof VARIANTS;
 
-// Pacing: brisk reel delivery. The first word lands at LEAD frames (< 0.5 s).
+// Pacing. The first word lands at LEAD frames (< 0.5 s); each beat breathes
+// for TAIL frames after its last word.
 export const LEAD = 6;
-const TAIL = 10;
+export const TAIL = 10;
 const CHARS_PER_SECOND = 16;
 
 export type Word = { text: string; emphasis: boolean; start: number; end: number };
@@ -62,7 +60,6 @@ export type Word = { text: string; emphasis: boolean; start: number; end: number
 type ManifestEntry = { file: string; durationInSeconds: number };
 const manifest = audioManifest as Partial<Record<BeatKey, ManifestEntry>>;
 export const getBeatAudio = (key: BeatKey) => manifest[key];
-// With narration, effects and music step back so the voice stays clear.
 export const HAS_VOICE = Object.keys(manifest).length > 0;
 
 // Word-level timing. Without audio it is estimated from length plus pauses
@@ -76,14 +73,11 @@ export const getWords = (key: BeatKey): Word[] => {
   });
   const total = weights.reduce((a, b) => a + b, 0);
   const audio = getBeatAudio(key);
-  const speech = audio
-    ? audio.durationInSeconds * REEL_FPS
-    : (total / CHARS_PER_SECOND) * REEL_FPS;
+  const speech = audio ? audio.durationInSeconds * REEL_FPS : (total / CHARS_PER_SECOND) * REEL_FPS;
   let cursor = LEAD;
   let open = false;
   return tokens.map((t, i) => {
-    // An emphasis span may cover several words: *tres puertas*.
-    const starts = t.startsWith("*");
+    const starts = t.startsWith("*") || t.startsWith("¿*") || t.startsWith("¡*");
     const ends = t.replace(/[.,:;!?]+$/, "").endsWith("*");
     const emphasis = open || starts;
     if (starts) open = true;
@@ -100,13 +94,34 @@ export const getWords = (key: BeatKey): Word[] => {
   });
 };
 
+// Captions are short phrases, 2 to 5 words, one at a time.
+export type Phrase = { words: Word[]; start: number; end: number };
+export const getPhrases = (key: BeatKey): Phrase[] => {
+  const words = getWords(key);
+  const phrases: Phrase[] = [];
+  let run: Word[] = [];
+  const flush = () => {
+    if (run.length) phrases.push({ words: run, start: run[0].start, end: run[run.length - 1].end });
+    run = [];
+  };
+  words.forEach((w, i) => {
+    run.push(w);
+    const punct = /[.,:;!?…]$/.test(w.text);
+    const next = words[i + 1];
+    // Break at punctuation, or at 4 words unless only one word would be left over.
+    if (punct || run.length >= 4 && !(next && i + 2 === words.length)) flush();
+    if (run.length >= 5) flush();
+  });
+  flush();
+  return phrases;
+};
+
 export const getBeatDuration = (key: BeatKey): number => {
   const words = getWords(key);
   return words[words.length - 1].end + TAIL;
 };
 
-export const getVariantDuration = (variant: Variant): number =>
-  VARIANTS[variant].reduce((sum, k) => sum + getBeatDuration(k), 0);
+export const getVariantDuration = (variant: Variant): number => VARIANTS[variant].reduce((sum, k) => sum + getBeatDuration(k), 0);
 
 // Start frame of every beat in a variant.
 export const getBeatStarts = (variant: Variant): Record<string, number> => {
@@ -119,8 +134,7 @@ export const getBeatStarts = (variant: Variant): Record<string, number> => {
   return starts;
 };
 
-const normalize = (s: string) =>
-  s.toLowerCase().replace(/[*.,:;!?¿¡]/g, "");
+const normalize = (s: string) => s.toLowerCase().replace(/[*.,:;!?¿¡…]/g, "");
 
 // Frame (beat-local) at which the narration says `fragment`.
 export const cue = (key: BeatKey, fragment: string): number => {
