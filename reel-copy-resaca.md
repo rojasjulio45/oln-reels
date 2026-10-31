@@ -1,6 +1,6 @@
 # Reel «¿Mezclar alcoholes da más resaca?»: textos para publicar
 
-Dos versiones del mismo reel vertical (1080×1920, menos de 60 s, ~7 MB), narradas por una voz masculina argentina, enérgica (Kadrath, ElevenLabs v3) y firmadas por Julio Rojas, con la fuente de cada dato en una línea gris al pie de cada escena. El objeto es la explicación: un banco de ensayo isométrico (skill Anatomy, MIT) con tres botellas invertidas, un tanque graduado, un indicador de carátula que marca el etanol total, una válvula de goteo que hace de hígado y una bandeja de sedimentos para los congéneres. Cambian el hook y el cierre:
+Dos versiones del mismo reel vertical (1080×1920, menos de 60 s, ~7 MB), narradas por una voz masculina argentina, enérgica (Kadrath, ElevenLabs v3) y firmadas por Julio Rojas, con la fuente de cada dato en una línea gris al pie de cada escena. El objeto es la explicación: un banco de ensayo isométrico (skill Anatomy, MIT) en estilo de grabado industrial, con tres botellas invertidas de cerveza, vino y bourbon (bebida visible y etiqueta), un tanque graduado con bandas de latón, un indicador de carátula que marca el etanol total, una válvula de goteo que hace de hígado y una bandeja de sedimentos para los congéneres. Cada escena añade una figura de datos dibujada a mano (90 personas, un trago por hora, 37× congéneres, cuatro factores, el conteo perdido, 47 de cada 100). Cambian el hook y el cierre:
 
 | Archivo | Hook | Cierre | Skill y regla aplicada |
 |---|---|---|---|
@@ -51,7 +51,7 @@ Checklist de hook (`virality`) que cumplen las dos versiones:
 > ⁶ NIAAA, Hangovers: https://www.niaaa.nih.gov/publications/brochures-and-fact-sheets/hangovers · Marczinski & Stamates, Alcohol Clin Exp Res 2013;37:696–702. https://doi.org/10.1111/acer.12039
 > ⁷ SENDA, Décimo Sexto Estudio Nacional de Drogas en Población General 2024: https://interior.gob.cl/noticias/2025/12/04/consumo-de-alcohol-alcanza-su-nivel-mas-bajo-en-30-anos-y-marihuana-en-adolescentes-llega-a-minimo-historico/
 
-**Portada sugerida:** el fotograma del hook con "90 personas." sobre el banco de ensayo (fondo #fbfbfd, texto #1d1d1f).
+**Portada sugerida:** el fotograma del hook con "90 personas." en Playfair sobre la botella de cerveza vertiendo (papel #f7f4ee, tinta #1c1a17, acento cobre #b5651d).
 **Cuándo publicar** (`linkedin-post-writer`): martes a jueves, entre 7:30 y 9:00 (hora local).
 
 ---

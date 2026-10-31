@@ -1,25 +1,67 @@
-/* Bench tokens on top of the Anatomy light theme: paper matches the reel,
-   lines a touch heavier for a 1080 px frame. The drinks are the one place
-   with colour: each bottle's liquid, and the ethanol mix in the tank. */
+/* "Grabado industrial": warm paper, ink lines that wobble a little, hatched
+   shading like an engraving, brass and the colour of each drink. Tokens
+   extend the Anatomy light theme; the wobble filter and the hatch patterns
+   live in Bench.tsx. */
 .iso[data-theme="light"] {
-  --anatomy-page: #fbfbfd;
-  --anatomy-card: #fbfbfd;
-  --anatomy-paper: #fbfbfd;
+  --anatomy-page: #f7f4ee;
+  --anatomy-card: #f7f4ee;
+  --anatomy-paper: #f7f4ee;
+  --anatomy-face: #fbf8f2;
+  --anatomy-top: #fbf8f2;
+  --anatomy-shade-0: #ddd6c8;
+  --anatomy-shade-1: #e6e0d3;
+  --anatomy-shade-2: #ede8dc;
+  --anatomy-shade-3: #f3eee4;
+  --anatomy-hi: #2a2520;
+  --anatomy-mid: #6f675c;
+  --anatomy-lo: #a79e90;
+  --anatomy-faint: #cfc7b8;
+  --anatomy-lit: #141210;
+  --anatomy-halo: #8a7f6c;
+  --anatomy-halo-opacity: 0.2;
+  --anatomy-dot: #3a332c;
   --anatomy-weight: 1.5px;
-  --anatomy-halo-opacity: 0.22;
+  --bench-ink: #2a2520;
   --bench-sediment: #3a2a1a;
 }
 .bench {
   overflow: hidden;
   display: block;
 }
+/* Engraved shading: hatching over the paper instead of flat tone blocks. */
+.bench .iso-shade[data-shade="0"] {
+  fill: url(#hatch0);
+}
+.bench .iso-shade[data-shade="1"] {
+  fill: url(#hatch1);
+}
+.bench .iso-shade[data-shade="2"] {
+  fill: url(#hatch2);
+}
+.bench .iso-shade[data-shade="3"] {
+  fill: url(#hatch3);
+}
+.bench .iso-dots circle {
+  opacity: 0.7;
+}
+/* Lettering on labels and plates. */
+.bench .iso-face-text {
+  font-family: "Old Standard TT", "Liberation Serif", serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  fill: var(--bench-ink);
+}
+.bench .iso-face-text[data-tone="lo"] {
+  fill: var(--anatomy-mid);
+}
 /* Glass: the tank and the cup let the liquid, the float and the rod show through. */
 .bench-glass > .iso-fill {
   fill: #ffffff;
-  fill-opacity: 0.34;
+  fill-opacity: 0.3;
 }
 .bench-glass > .iso-shade {
-  fill-opacity: 0.42;
+  fill: #000000;
+  fill-opacity: 0.05;
 }
 .bench-glass > .iso-top {
   display: none;
@@ -30,13 +72,15 @@
 /* Bottle glass: thinner, so the drink inside reads. */
 .bench-bottle > .iso-fill {
   fill: #ffffff;
-  fill-opacity: 0.26;
+  fill-opacity: 0.12;
 }
 .bench-bottle > .iso-shade {
-  fill-opacity: 0.3;
+  fill: #000000;
+  fill-opacity: 0.035;
 }
 .bench-bottle > .iso-top {
-  fill-opacity: 0.45;
+  fill: #ffffff;
+  fill-opacity: 0.4;
 }
 .bench-bottle > .iso-edge {
   stroke: var(--anatomy-mid);
@@ -44,7 +88,7 @@
 .bench-bottle[data-lit] > .iso-edge {
   stroke: var(--anatomy-lit);
 }
-/* Tinted liquid: the fill carries the colour, the shades darken it, the top lightens it. */
+/* Tinted solids (drinks, brass): the fill carries the colour, the shades darken it, the top lightens it. */
 .bench-tint > .iso-fill {
   fill: var(--tint);
   fill-opacity: var(--tint-a);
@@ -53,10 +97,10 @@
   fill: #000000;
 }
 .bench-tint > .iso-shade[data-shade="0"] {
-  fill-opacity: 0.2;
+  fill-opacity: 0.22;
 }
 .bench-tint > .iso-shade[data-shade="1"] {
-  fill-opacity: 0.13;
+  fill-opacity: 0.14;
 }
 .bench-tint > .iso-shade[data-shade="2"] {
   fill-opacity: 0.07;
@@ -70,7 +114,14 @@
 }
 .bench-tint > .iso-edge {
   stroke: var(--tint);
-  stroke-opacity: 0.55;
+  stroke-opacity: 0.6;
+}
+.bench-brass > .iso-edge {
+  stroke: var(--anatomy-hi);
+  stroke-opacity: 0.8;
+}
+.bench-brass > .iso-top {
+  fill-opacity: 0.45;
 }
 .bench-stream > .iso-edge {
   stroke-opacity: 0.3;

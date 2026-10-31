@@ -2,16 +2,19 @@ import React from "react";
 import { Easing, Html5Audio, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { BeatKey, HAS_VOICE, getPhrases } from "./script";
 
-// Keynote palette: paper, ink, a quiet grey and one blue accent.
+// Palette, "grabado industrial": warm paper, warm ink, a quiet grey and one
+// copper accent. Half keynote, half engraving.
 export const K = {
-  paper: "#fbfbfd",
-  ink: "#1d1d1f",
-  grey: "#86868b",
-  accent: "#0071e3",
-  black: "#000000",
-  white: "#ffffff",
+  paper: "#f7f4ee",
+  ink: "#1c1a17",
+  grey: "#857d72",
+  accent: "#b5651d",
+  black: "#141210",
+  white: "#f7f4ee",
 };
 export const DISPLAY = "'Inter Display', Inter, sans-serif";
+export const SERIF = "'Playfair Display', 'Liberation Serif', serif";
+export const OLD = "'Old Standard TT', 'Liberation Serif', serif";
 export const EASE = Easing.bezier(0.25, 0.1, 0.25, 1);
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -46,9 +49,10 @@ export interface Line {
   size?: number;
   weight?: number;
   color?: string;
+  serif?: boolean; // hero numerals and short statements in Playfair Display
 }
 
-const Rich: React.FC<{ text: string; accent?: string; color: string }> = ({ text, accent, color }) => {
+const Rich: React.FC<{ text: string; accent?: string }> = ({ text, accent }) => {
   if (!accent || !text.includes(accent)) return <>{text}</>;
   const [a, b] = text.split(accent);
   return (
@@ -58,11 +62,10 @@ const Rich: React.FC<{ text: string; accent?: string; color: string }> = ({ text
       {b}
     </>
   );
-  void color;
 };
 
-// Big, thin keynote headline. Lines appear one under another (or replace
-// each other when `until` is set), each with a fade and a short rise.
+// Big keynote headline. Lines appear one under another (or replace each
+// other when `until` is set), each with a fade and a short rise.
 export const Headline: React.FC<{ lines: Line[]; y?: number; align?: "center" | "left"; color?: string; size?: number }> = ({
   lines,
   y = 300,
@@ -84,28 +87,29 @@ export const Headline: React.FC<{ lines: Line[]; y?: number; align?: "center" | 
         alignItems: align === "center" ? "center" : "flex-start",
         textAlign: align,
         gap: 10,
-        fontFamily: DISPLAY,
       }}
     >
       {lines.map((l, i) => {
         const r = reveal(frame, l.at, l.until);
         if (r.opacity <= 0.001) return null;
+        const fs = l.size ?? size;
         return (
           <div
             key={i}
             style={{
               opacity: r.opacity,
               transform: `translateY(${r.y}px)`,
-              fontSize: l.size ?? size,
-              fontWeight: l.weight ?? 500,
-              letterSpacing: `${-(l.size ?? size) * 0.03}px`,
+              fontFamily: l.serif ? SERIF : DISPLAY,
+              fontSize: fs,
+              fontWeight: l.weight ?? (l.serif ? 600 : 500),
+              letterSpacing: `${-fs * (l.serif ? 0.015 : 0.03)}px`,
               lineHeight: 1.04,
               color: l.color ?? color,
               fontVariantNumeric: "tabular-nums",
               whiteSpace: "pre-line",
             }}
           >
-            <Rich text={l.text} accent={l.accent} color={l.color ?? color} />
+            <Rich text={l.text} accent={l.accent} />
           </div>
         );
       })}
@@ -113,8 +117,8 @@ export const Headline: React.FC<{ lines: Line[]; y?: number; align?: "center" | 
   );
 };
 
-// A grey secondary line under a headline.
-export const Sub: React.FC<{ text: string; at: number; until?: number; y: number; color?: string; size?: number }> = ({ text, at, until, y, color = K.grey, size = 44 }) => {
+// A secondary line under a headline, in an engraved-era italic.
+export const Sub: React.FC<{ text: string; at: number; until?: number; y: number; color?: string; size?: number }> = ({ text, at, until, y, color = K.grey, size = 46 }) => {
   const frame = useCurrentFrame();
   const r = reveal(frame, at, until);
   if (r.opacity <= 0.001) return null;
@@ -126,10 +130,10 @@ export const Sub: React.FC<{ text: string; at: number; until?: number; y: number
         right: 120,
         top: y,
         textAlign: "center",
-        fontFamily: DISPLAY,
+        fontFamily: OLD,
+        fontStyle: "italic",
         fontSize: size,
         fontWeight: 400,
-        letterSpacing: `${-size * 0.01}px`,
         lineHeight: 1.25,
         color,
         opacity: r.opacity,
@@ -191,23 +195,23 @@ export const Footnote: React.FC<{ text: string; author?: string; dark?: boolean 
   const frame = useCurrentFrame();
   const dark = typeof darkProp === "number" ? frame < darkProp : darkProp;
   return (
-  <div
-    style={{
-      position: "absolute",
-      left: 96,
-      right: 96,
-      top: y,
-      textAlign: "center",
-      fontFamily: DISPLAY,
-      color: dark ? "rgba(255,255,255,0.55)" : K.grey,
-      fontSize: 26,
-      fontWeight: 400,
-      lineHeight: 1.4,
-      letterSpacing: "0px",
-    }}
-  >
-    <div>{text}</div>
-    {author ? <div style={{ opacity: 0.8 }}>{author}</div> : null}
-  </div>
+    <div
+      style={{
+        position: "absolute",
+        left: 96,
+        right: 96,
+        top: y,
+        textAlign: "center",
+        fontFamily: DISPLAY,
+        color: dark ? "rgba(247,244,238,0.55)" : K.grey,
+        fontSize: 26,
+        fontWeight: 400,
+        lineHeight: 1.4,
+        letterSpacing: "0px",
+      }}
+    >
+      <div>{text}</div>
+      {author ? <div style={{ opacity: 0.8 }}>{author}</div> : null}
+    </div>
   );
 };

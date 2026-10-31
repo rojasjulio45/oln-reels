@@ -1,13 +1,53 @@
 import React from "react";
-import { AbsoluteFill, Html5Audio, Series, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Html5Audio, Series, continueRender, delayRender, interpolate, staticFile, useCurrentFrame } from "remotion";
 import "../iso/iso.css";
 import "./bench/bench.css";
 import { Bench } from "./bench/Bench";
 import { cameraAt, framingOf, toCanvas } from "./bench/camera";
 import { programOf, readingOf, stateAt } from "./bench/model";
 import { BEATS } from "./beats/Beats";
-import { DISPLAY, K, ease } from "./kit";
+import { DISPLAY, K, OLD, ease } from "./kit";
 import { BeatKey, HAS_VOICE, REEL_H, REEL_W, VARIANTS, Variant, getBeatDuration, getVariantDuration } from "./script";
+
+const PAPER_0 = "rgba(247,244,238,0)";
+
+// Self-hosted Google Fonts (OFL) from public/fonts, declared at runtime so the
+// bundler leaves the paths alone.
+const FACES: Array<[string, string, number, string]> = [
+  ["Playfair Display", "italic", 400, "PlayfairDisplay-400-italic.woff2"],
+  ["Playfair Display", "normal", 400, "PlayfairDisplay-400-normal.woff2"],
+  ["Playfair Display", "normal", 600, "PlayfairDisplay-600-normal.woff2"],
+  ["Old Standard TT", "italic", 400, "OldStandardTT-400-italic.woff2"],
+  ["Old Standard TT", "normal", 400, "OldStandardTT-400-normal.woff2"],
+  ["Old Standard TT", "normal", 700, "OldStandardTT-700-normal.woff2"],
+];
+const FontFaces: React.FC = () => (
+  <style>
+    {FACES.map(([family, style, weight, file]) => `@font-face{font-family:'${family}';font-style:${style};font-weight:${weight};font-display:block;src:url('${staticFile(`fonts/${file}`)}') format('woff2');}`).join("\n")}
+  </style>
+);
+
+// Wait for the self-hosted serifs before the first frame is captured.
+const useFonts = () => {
+  const [handle] = React.useState(() => delayRender("fonts"));
+  React.useEffect(() => {
+    const faces = ["600 100px 'Playfair Display'", "400 100px 'Playfair Display'", "italic 400 40px 'Old Standard TT'", "700 20px 'Old Standard TT'", "400 20px 'Old Standard TT'"];
+    Promise.all(faces.map((f) => document.fonts.load(f)))
+      .then(() => continueRender(handle))
+      .catch(() => continueRender(handle));
+  }, [handle]);
+};
+
+// Paper grain: static noise, multiplied over everything, barely there.
+const Grain: React.FC = () => (
+  <svg width={REEL_W} height={REEL_H} style={{ position: "absolute", inset: 0, mixBlendMode: "multiply", opacity: 0.09, pointerEvents: "none" }}>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grain)" />
+  </svg>
+);
 
 // Keynote callout: a dot on the part, a hairline and a short word.
 const Callout: React.FC<{ x: number; y: number; text: string; side: "left" | "right"; opacity: number }> = ({ x, y, text, side, opacity }) => {
@@ -64,8 +104,6 @@ const Stage: React.FC<{ variant: Variant }> = ({ variant }) => {
   const framing = framingOf(cam);
   const dark = program.dark.reduce((o, [a, b]) => Math.max(o, ease(frame, a - 12, 12) * (1 - ease(frame, b - 12, 12))), 0);
 
-  // The callout of the current shot appears once the camera has settled and
-  // leaves just before the next shot.
   const index = program.shots.indexOf(cam.shot);
   const next = program.shots[index + 1];
   const callout = cam.shot.callout;
@@ -74,15 +112,14 @@ const Stage: React.FC<{ variant: Variant }> = ({ variant }) => {
 
   return (
     <AbsoluteFill className="iso" data-theme="light">
-      <AbsoluteFill style={{ background: `radial-gradient(ellipse 70% 50% at 50% 52%, #ffffff 0%, ${K.paper} 70%)` }} />
-      {/* positioned, so it paints above the gradient behind it and below the fades */}
+      <AbsoluteFill style={{ background: `radial-gradient(ellipse 72% 52% at 50% 54%, #fdfbf6 0%, ${K.paper} 72%)` }} />
       <AbsoluteFill>
         <Bench state={state} P={framing.P} viewBox={framing.viewBox} width={REEL_W} height={REEL_H} />
       </AbsoluteFill>
       {/* paper fades above and below the object, where the words live */}
       <AbsoluteFill
         style={{
-          background: `linear-gradient(to bottom, ${K.paper} 0%, ${K.paper} 21%, rgba(251,251,253,0) 33%, rgba(251,251,253,0) 64%, ${K.paper} 76%, ${K.paper} 100%)`,
+          background: `linear-gradient(to bottom, ${K.paper} 0%, ${K.paper} 22%, ${PAPER_0} 34%, ${PAPER_0} 64%, ${K.paper} 76%, ${K.paper} 100%)`,
           pointerEvents: "none",
         }}
       />
@@ -93,13 +130,13 @@ const Stage: React.FC<{ variant: Variant }> = ({ variant }) => {
           position: "absolute",
           left: 0,
           right: 0,
-          top: 1640,
+          top: 1638,
           textAlign: "center",
-          fontFamily: DISPLAY,
-          fontSize: 30,
+          fontFamily: OLD,
+          fontSize: 32,
           fontWeight: 400,
           color: K.grey,
-          letterSpacing: "0.2px",
+          letterSpacing: "0.4px",
           fontVariantNumeric: "tabular-nums",
           opacity: interpolate(frame, [20, 40], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
         }}
@@ -112,9 +149,11 @@ const Stage: React.FC<{ variant: Variant }> = ({ variant }) => {
 };
 
 export const Reel: React.FC<{ variant: Variant }> = ({ variant }) => {
+  useFonts();
   const total = getVariantDuration(variant);
   return (
     <AbsoluteFill style={{ background: K.paper }}>
+      <FontFaces />
       <Stage variant={variant} />
       <Series>
         {VARIANTS[variant].map((key: BeatKey) => {
@@ -126,6 +165,7 @@ export const Reel: React.FC<{ variant: Variant }> = ({ variant }) => {
           );
         })}
       </Series>
+      <Grain />
       <Html5Audio src={staticFile(`reel/bgm-${variant}.wav`)} volume={(f) => interpolate(f, [0, 30, total - 30, total], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) * (HAS_VOICE ? 0.16 : 0.45)} />
     </AbsoluteFill>
   );

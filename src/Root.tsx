@@ -14,7 +14,7 @@ const BenchStill: React.FC<{ frame: number; width: number; azimuth?: number; ele
   const program = programOf("linkedin");
   const state = stateAt(program, frame);
   state.explode = state.explode.map(() => 0);
-  const cam = { azimuth, elevation, focus: [-8, 10, 62] as [number, number, number], zoom, anchor: 0.5, shot: program.shots[0], settled: 1 };
+  const cam = { azimuth, elevation, focus: [-10, 0, 82] as [number, number, number], zoom, anchor: 0.5, shot: program.shots[0], settled: 1 };
   const framing = framingOf(cam);
   const height = Math.round((width * REEL_H) / REEL_W);
   return (

@@ -60,6 +60,7 @@ export const EXPLODE: Record<Assembly, { move: [number, number, number]; order: 
 };
 const STAGGER = 0.09; // seconds between assemblies
 const SETTLE = 0.42; // time constant of the critically damped spring
+void STAGGER;
 
 // Critically damped step response, 0 at t = 0 and 1 at rest.
 const settled = (t: number) => {
@@ -86,13 +87,9 @@ export function programOf(variant: Variant): Program {
 
   const hook = keys[0];
   // Hook: the bench closes up from its exploded view, then the first pour.
-  if (hook === "hookInstagram") {
-    pours.push({ start: c(hook, "cerveza"), duration: sec(1.1), bottle: "beer", amount: 1 });
-    pours.push({ start: c(hook, "vino"), duration: sec(1.1), bottle: "wine", amount: 1 });
-  } else {
-    pours.push({ start: starts[hook] + sec(1.0), duration: sec(1.1), bottle: "beer", amount: 1 });
-    pours.push({ start: c(hook, "misma"), duration: sec(1.1), bottle: "wine", amount: 1 });
-  }
+  // Frame 0 is already a beer pouring in close-up; the wine follows on its word.
+  pours.push({ start: -14, duration: sec(1.5), bottle: "beer", amount: 1 });
+  pours.push({ start: c(hook, "vino"), duration: sec(1.2), bottle: "wine", amount: 1 });
   lit.push({ from: starts[hook] + sec(0.9), to: end(hook), part: "needle" });
 
   // Ensayo: the reverse order, same reading.
@@ -148,22 +145,22 @@ export function programOf(variant: Variant): Program {
 
 // ---------- camera ----------
 // Points of interest, in world units.
-const BEER: Point3 = [V.BOTTLE_XS[0], V.BOTTLE_Y, 128];
-const WINE: Point3 = [V.BOTTLE_XS[1], V.BOTTLE_Y, 128];
-const BOURBON: Point3 = [V.BOTTLE_XS[2], V.BOTTLE_Y, 124];
-const RACK: Point3 = [-72, V.BOTTLE_Y, 118];
-const DIAL: Point3 = [V.TANK[0], V.TANK[1], 127];
-const TANK: Point3 = [V.TANK[0], V.TANK[1], 44];
-const TANK_HIGH: Point3 = [V.TANK[0], V.TANK[1], 72];
-const NOZZLE: Point3 = [V.SPOUT_X, V.TANK[1], 70];
-const VALVE: Point3 = [V.VALVE[0] + 4, V.VALVE[1], 20];
-const CUP: Point3 = [V.CUP[0] - 3, V.CUP[1], 8];
-const DRAWER: Point3 = [V.DRAWER_X + V.DRAWER_W / 2, V.DRAWER_FRONT_Y + 26, -6];
-const BASE_LOW: Point3 = [V.TANK[0], V.TANK[1], 18];
-const WIDE: Point3 = [-8, 10, 62];
-const WIDE_HIGH: Point3 = [-8, 10, 78];
+const BEER: Point3 = [V.BOTTLE_XS[0], V.BOTTLE_Y, 156];
+const WINE: Point3 = [V.BOTTLE_XS[1], V.BOTTLE_Y, 154];
+const BOURBON: Point3 = [V.BOTTLE_XS[2], V.BOTTLE_Y, 144];
+const RACK: Point3 = [-70, V.BOTTLE_Y, 140];
+const DIAL: Point3 = [V.TANK[0], V.TANK[1], V.DIAL_TOP - 3];
+const TANK: Point3 = [V.TANK[0], V.TANK[1], V.TANK_Z + 24];
+const TANK_HIGH: Point3 = [V.TANK[0], V.TANK[1], V.TANK_TOP - 8];
+const NOZZLE: Point3 = [V.SPOUT_X, V.TANK[1], V.TANK_TOP - 4];
+const VALVE: Point3 = [V.VALVE[0] + 4, V.VALVE[1], V.DRAIN_Z + 2];
+const CUP: Point3 = [V.CUP[0] - 3, V.CUP[1], V.PLATFORM_TOP + 6];
+const DRAWER: Point3 = [V.DRAWER_X + V.DRAWER_W / 2, V.DRAWER_FRONT_Y + 20, V.HOUSING_Z + 6];
+const BASE_LOW: Point3 = [V.TANK[0], V.TANK[1], V.TANK_Z + 6];
+const WIDE: Point3 = [-10, 0, 82];
+const WIDE_HIGH: Point3 = [-10, 0, 98];
 
-const WIDE_Z = 0.95;
+const WIDE_Z = 0.98;
 const MEDIUM = 2.0; // the tank and its gauge
 const RACK_Z = 2.3; // the three bottles
 const CLOSE = 4.8; // one bottle
@@ -178,16 +175,14 @@ function shotsOf(variant: Variant, starts: Record<string, number>, c: Cue, end: 
   const cta = VARIANTS[variant][VARIANTS[variant].length - 1];
   void end;
 
-  // Hook: the bench closes up wide, then the camera goes to each drink and to the dial.
-  add({ at: 0, focus: WIDE, zoom: WIDE_Z, azimuth: 46, elevation: 30, drift: { zoom: 0.06, azimuth: 4 } });
+  // Hook: frame 0 is the beer pouring in close-up, then the wine, the rack and the dial.
+  add({ at: 0, focus: BEER, zoom: CLOSE, azimuth: 36, elevation: 26, drift: { zoom: 0.08, azimuth: 5 }, callout: { text: "Cerveza", point: BEER, side: "right" } });
   if (hook === "hookInstagram") {
-    add({ at: c(hook, "cerveza") - 4, focus: BEER, zoom: CLOSE, azimuth: 36, elevation: 26, move: 22, callout: { text: "Cerveza", point: BEER, side: "right" } });
     add({ at: c(hook, "vino") - 2, focus: WINE, zoom: CLOSE, azimuth: 44, elevation: 26, move: 18, callout: { text: "Vino", point: WINE, side: "right" } });
     add({ at: c(hook, "resaca") + 2, focus: TANK_HIGH, zoom: MEDIUM, azimuth: 52, elevation: 32, move: 24 });
     add({ at: c(hook, "ensayo") - 4, focus: WIDE, zoom: 1.05, azimuth: 60, elevation: 30, move: 26, drift: { azimuth: 6 } });
     add({ at: c(hook, "no") - 6, focus: DIAL, zoom: TIGHT, azimuth: 56, elevation: 44, move: 20, callout: { text: "Etanol total", point: DIAL, side: "right" } });
   } else {
-    add({ at: starts[hook] + sec(0.9), focus: BEER, zoom: CLOSE, azimuth: 36, elevation: 26, move: 24, callout: { text: "Cerveza", point: BEER, side: "right" } });
     add({ at: c(hook, "vino") - 2, focus: WINE, zoom: CLOSE, azimuth: 44, elevation: 26, move: 18, callout: { text: "Vino", point: WINE, side: "right" } });
     add({ at: c(hook, "órdenes") - 2, focus: RACK, zoom: RACK_Z, azimuth: 30, elevation: 24, move: 22, drift: { azimuth: 24 } });
     add({ at: c(hook, "misma") - 8, focus: DIAL, zoom: TIGHT, azimuth: 56, elevation: 44, move: 22, callout: { text: "Etanol total", point: DIAL, side: "right" } });
@@ -274,10 +269,8 @@ export function stateAt(program: Program, frame: number): BenchState {
   const explode = ASSEMBLIES.map((name) => {
     const { order } = EXPLODE[name];
     if (name === "base") return 0;
-    const t = frame / REEL_FPS;
-    const closing = 1 - settled(t - order * STAGGER);
-    const opening = settled((frame - program.apartFrom) / REEL_FPS - order * STAGGER * 2.2);
-    return Math.max(closing, opening);
+    // Assembled from the first frame; it comes apart only in the closing beat.
+    return settled((frame - program.apartFrom) / REEL_FPS - order * STAGGER * 2.2);
   });
 
   const lit = program.lit.find((l) => frame >= l.from && frame <= l.to)?.part ?? "none";
