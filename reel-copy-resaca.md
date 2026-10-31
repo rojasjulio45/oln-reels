@@ -1,6 +1,6 @@
 # Reel «¿Mezclar alcoholes da más resaca?»: textos para publicar
 
-Dos versiones del mismo reel vertical (1080×1920, menos de 60 s, ~7 MB), narradas por la voz Jessica (ElevenLabs v3) y firmadas por Julio Rojas, con la fuente de cada dato en una línea gris al pie de cada escena. El objeto es la explicación: un banco de ensayo isométrico (skill Anatomy, MIT) con tres botellas invertidas, un tanque graduado, un indicador de carátula que marca el etanol total, una válvula de goteo que hace de hígado y una bandeja de sedimentos para los congéneres. Cambian el hook y el cierre:
+Dos versiones del mismo reel vertical (1080×1920, menos de 60 s, ~7 MB), narradas por una voz masculina chilena (ElevenLabs v3) y firmadas por Julio Rojas, con la fuente de cada dato en una línea gris al pie de cada escena. El objeto es la explicación: un banco de ensayo isométrico (skill Anatomy, MIT) con tres botellas invertidas, un tanque graduado, un indicador de carátula que marca el etanol total, una válvula de goteo que hace de hígado y una bandeja de sedimentos para los congéneres. Cambian el hook y el cierre:
 
 | Archivo | Hook | Cierre | Skill y regla aplicada |
 |---|---|---|---|
@@ -43,13 +43,13 @@ Checklist de hook (`virality`) que cumplen las dos versiones:
 > #Salud #Ciencia
 
 **Primer comentario (fuentes):**
-> Ensayo cerveza/vino: Köchling J. et al., "Grape or grain but never the twain?", American Journal of Clinical Nutrition, 2019 (doi 10.1093/ajcn/nqy309). Nota de prensa de la Universidad de Cambridge: https://www.cam.ac.uk/research/news/wine-before-beer-or-beer-before-wine-either-way-youll-be-hungover-study-finds
-> Resaca y mitos (orden de las bebidas): NIAAA, Hangovers: https://www.niaaa.nih.gov/publications/brochures-and-fact-sheets/hangovers
-> Ritmo del hígado: NIAAA, Alcohol Metabolism: https://www.niaaa.nih.gov/publications/alcohol-metabolism
-> Congéneres (bourbon vs vodka, 95 personas): Rohsenow D. J. et al., Alcoholism: Clinical and Experimental Research, 2010; revisión Rohsenow & Howland, Current Drug Abuse Reviews, 2010.
-> Factores que empeoran la resaca: Mayo Clinic, Hangovers: https://www.mayoclinic.org/diseases-conditions/hangovers/symptoms-causes/syc-20373012 · NHS 111 Wales, Hangover: https://111.wales.nhs.uk/Hangover
-> Burbujas y absorción: Roberts C. & Robinson S. P., Journal of Forensic and Legal Medicine, 2007.
-> Chile: SENDA, Décimo Sexto Estudio Nacional de Drogas en Población General (2024, publicado el 4/12/2025): https://interior.gob.cl/noticias/2025/12/04/consumo-de-alcohol-alcanza-su-nivel-mas-bajo-en-30-anos-y-marihuana-en-adolescentes-llega-a-minimo-historico/
+> ¹ Köchling J. et al., "Grape or grain but never the twain?", American Journal of Clinical Nutrition 2019;109(2):345–352. https://doi.org/10.1093/ajcn/nqy309
+> ² Mackus M. et al., "The role of alcohol metabolism in the pathology of alcohol hangover", Journal of Clinical Medicine 2020;9(11):3421. https://doi.org/10.3390/jcm9113421
+> ³ NIAAA, Alcohol Metabolism: https://www.niaaa.nih.gov/publications/alcohol-metabolism · Jones A. W., Forensic Science International 2010;200:1–20.
+> ⁴ Rohsenow D. J. et al., "Intoxication with bourbon versus vodka", Alcoholism: Clinical and Experimental Research 2010;34(3):509–518. https://doi.org/10.1111/j.1530-0277.2009.01116.x
+> ⁵ Jones & Jönsson, J Forensic Sci 1994;39:1084–93 · Roberts & Robinson, J Forensic Leg Med 2007;14:398–405 · van Schrojenstein Lantman M. et al., Nature and Science of Sleep 2017;9:181–186. https://doi.org/10.2147/NSS.S136467
+> ⁶ NIAAA, Hangovers: https://www.niaaa.nih.gov/publications/brochures-and-fact-sheets/hangovers · Marczinski & Stamates, Alcohol Clin Exp Res 2013;37:696–702. https://doi.org/10.1111/acer.12039
+> ⁷ SENDA, Décimo Sexto Estudio Nacional de Drogas en Población General 2024: https://interior.gob.cl/noticias/2025/12/04/consumo-de-alcohol-alcanza-su-nivel-mas-bajo-en-30-anos-y-marihuana-en-adolescentes-llega-a-minimo-historico/
 
 **Portada sugerida:** el fotograma del hook con "90 personas." sobre el banco de ensayo (fondo #fbfbfd, texto #1d1d1f).
 **Cuándo publicar** (`linkedin-post-writer`): martes a jueves, entre 7:30 y 9:00 (hora local).
@@ -85,12 +85,16 @@ Checklist de hook (`virality`) que cumplen las dos versiones:
 
 ## Fuentes verificadas para el guion
 
-| Escena | Dato | Fuente | Matiz |
-|---|---|---|---|
-| Hook y ensayo | 90 personas de 19 a 40 años; cerveza→vino, vino→cerveza y control; cruzado una semana después; sin diferencia en la Acute Hangover Scale; la sensación de borrachera y el vómito predijeron la resaca | Köchling et al., AJCN 2019 | Solo cerveza lager y vino blanco; la cerveza la donó Carlsberg |
-| Realidad | El orden de las bebidas es un mito; cuenta el etanol total | NIAAA, Hangovers; Köchling et al. | |
-| Hígado | Cerca de un trago estándar por hora, en promedio | NIAAA, Alcohol Metabolism | Varía por peso, sexo, comida y genética |
-| Congéneres | Bourbon dio peor resaca que vodka a igual alcoholemia (0,11 g%) en 95 bebedores; el efecto del etanol fue mucho mayor que el de los congéneres | Rohsenow et al., ACER 2010; Mayo Clinic | Pocos estudios; por eso "suelen" y "según algunos estudios" |
-| Velocidad, estómago, burbujas, sueño | Beber rápido y en ayunas, las bebidas gaseosas y dormir mal empeoran la resaca | NHS 111 Wales; Mayo Clinic; Roberts & Robinson 2007 (21 personas, absorción inicial ~50 % más rápida con gas, muy variable) | "Pueden acelerar" |
-| Por qué parece cierto | Al mezclar se bebe más y se pierde la cuenta; lo dulce disimula el alcohol | The Conversation, "Monday's medical myth: mixing drinks causes hangovers"; discusión de Köchling et al. | Explicación plausible, no medida en el ensayo |
-| Chile | 34,6 % bebió el último mes (mínimo desde 1994); de ellos, 47,2 % tuvo al menos una embriaguez (5+ tragos hombres, 4+ mujeres) | SENDA, ENPG 2024 (18.668 personas de 12 a 65 años) | Una sola frase de contexto |
+Numeración igual a la de las notas al pie del video. Cada cifra del guion sale de estas fuentes y se matiza donde la evidencia es acotada.
+
+| Nota | Escena | Dato en el reel | Fuente primaria | Matiz |
+|---|---|---|---|---|
+| ¹ | Hook y ensayo | 90 personas de 19 a 40 años (50 % mujeres); cerveza→vino, vino→cerveza y grupo control; cruzado una semana después; ni el tipo ni el orden cambió la resaca (Acute Hangover Scale); la sensación de borrachera y el vómito fueron los mejores predictores | Köchling J, Geis B, Wirth S, Hensel KO. *Grape or grain but never the twain? A randomized controlled multiarm matched-triplet crossover trial of beer and wine.* Am J Clin Nutr 2019;109(2):345–352. doi:10.1093/ajcn/nqy309 | Solo cerveza lager y vino blanco; se bebió hasta 0,11 % de alcohol en aire espirado; la cerveza la donó Carlsberg |
+| ² | Realidad | La concentración de etanol en sangre se relaciona directamente con la severidad de la resaca; quien elimina el etanol más rápido tiene resacas menos severas | Mackus M, van de Loo AJAE, Garssen J, Kraneveld AD, Scholey A, Verster JC. *The role of alcohol metabolism in the pathology of alcohol hangover.* J Clin Med 2020;9(11):3421. doi:10.3390/jcm9113421 | Revisión; el acetaldehído no mostró la misma relación |
+| ³ | Hígado | El cuerpo elimina el alcohol a un ritmo aproximadamente constante, del orden de 0,015 g/dL por hora, lo que equivale a cerca de un trago estándar por hora | NIAAA. *Alcohol Metabolism* (hoja informativa) · Jones AW. *Evidence-based survey of the elimination rates of ethanol from blood with applications in forensic casework.* Forensic Sci Int 2010;200:1–20 | Es un promedio; varía con el peso, el sexo, la comida y la genética |
+| ⁴ | Congéneres | 95 bebedores de 21 a 33 años llevados a 0,11 g % con bourbon o vodka: el bourbon dio peor resaca, pero el efecto del etanol fue mucho mayor que el de los congéneres; el desempeño al día siguiente fue igual | Rohsenow DJ, Howland J, Arnedt JT, et al. *Intoxication with bourbon versus vodka: effects on hangover, sleep, and next-day neurocognitive performance in young adults.* Alcohol Clin Exp Res 2010;34(3):509–518. doi:10.1111/j.1530-0277.2009.01116.x · Rohsenow DJ, Howland J. *The role of beverage congeners in hangover and other residual effects of alcohol intoxication: a review.* Curr Drug Abuse Rev 2010;3(2):76–79 | Pocos estudios; por eso el guion dice "suelen" |
+| ⁵ | Velocidad, estómago vacío, burbujas, sueño | Comer antes baja el pico de alcoholemia y acelera la eliminación; el gas carbónico aceleró la absorción inicial en promedio (con gran variación entre personas); dormir menos de 7 h se asoció a resacas más severas | Jones AW, Jönsson KÅ. *Food-induced lowering of blood-ethanol profiles and increased rate of elimination immediately after a meal.* J Forensic Sci 1994;39(4):1084–1093 · Roberts C, Robinson SP. *Alcohol concentration and carbonation of drinks: the effect on blood alcohol levels.* J Forensic Leg Med 2007;14(7):398–405 · Ridout F, Gould S, Nunes C, Hindmarch I. *The effects of carbon dioxide in champagne on psychometric performance and blood-alcohol concentration.* Alcohol Alcohol 2003;38(4):381–385 · van Schrojenstein Lantman M, Mackus M, Roth T, Verster JC. *Total sleep time, alcohol consumption, and the duration and severity of alcohol hangover.* Nat Sci Sleep 2017;9:181–186. doi:10.2147/NSS.S136467 | Burbujas: 21 y 12 personas, efecto pasajero; sueño: estudio correlacional en estudiantes |
+| ⁶ | Por qué parece cierto | El orden de las bebidas es un mito; cuenta el alcohol total. Con bebida dietética el alcohol en aire fue ~18 % mayor que con bebida azucarada y los participantes no lo notaron | NIAAA. *Hangovers* (hoja informativa) · Marczinski CA, Stamates AL. *Artificial sweeteners versus regular mixers increase breath alcohol concentrations in male and female social drinkers.* Alcohol Clin Exp Res 2013;37(4):696–702. doi:10.1111/acer.12039 · Köchling et al., 2019 (discusión) | "Se pierde la cuenta" es la explicación más plausible, no un resultado medido en el ensayo |
+| ⁷ | Chile | 34,6 % bebió alcohol el último mes (mínimo desde 1994); de ellos, 47,2 % tuvo al menos una embriaguez (5+ tragos hombres, 4+ mujeres); 18.668 personas de 12 a 65 años | SENDA. *Décimo Sexto Estudio Nacional de Drogas en Población General de Chile, 2024* (resultados publicados el 4 de diciembre de 2025) | Una sola frase de contexto |
+
+Otras lecturas que respaldan el enfoque: Penning R, van Nuland M, Fliervoet LAL, Olivier B, Verster JC. *The pathology of alcohol hangover.* Curr Drug Abuse Rev 2010;3(2):68–75 (la deshidratación por sí sola no explica la resaca; pesan los factores inmunes) · Verster JC et al., Alcohol Hangover Research Group, consenso 2010.

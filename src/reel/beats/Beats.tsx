@@ -53,7 +53,7 @@ const Ensayo: React.FC = () => {
           { text: "La misma lectura.", at: c("misma") - 4, accent: "misma", size: 104 },
         ]}
       />
-      <Sub text="Ensayo clínico cruzado, 90 personas¹" at={c("noventa") - 4} until={c("misma") - 6} y={400} />
+      <Sub text="Köchling et al., Am J Clin Nutr 2019 · ensayo cruzado, 90 personas¹" at={c("noventa") - 4} until={c("misma") - 6} y={400} />
     </BeatShell>
   );
 };
@@ -78,8 +78,8 @@ const Higado: React.FC = () => {
   const c = (s: string) => cue("higado", s);
   return (
     <BeatShell beat="higado">
-      <Headline y={250} lines={[{ text: "≈ 1 trago por hora²", at: c("un trago") - 8, accent: "1" }]} size={96} />
-      <Sub text="Lo que tu hígado procesa, en promedio" at={c("hora") + 2} y={380} />
+      <Headline y={250} lines={[{ text: "≈ 1 trago por hora³", at: c("un trago") - 8, accent: "1" }]} size={96} />
+      <Sub text="Lo que el hígado elimina, en promedio³" at={c("hora") + 2} y={380} />
       <Sfx name="click" at={c("procesa")} volume={0.3} />
       <Sfx name="drip" at={c("procesa") + 14} volume={0.25} />
       <Sfx name="drip" at={c("procesa") + 36} volume={0.2} />
@@ -92,8 +92,8 @@ const Congeneres: React.FC = () => {
   const c = (s: string) => cue("congeneres", s);
   return (
     <BeatShell beat="congeneres">
-      <Headline y={250} lines={[{ text: "Congéneres³", at: c("congéneres") - 6, accent: "Congéneres" }]} size={124} />
-      <Sub text="Más en las bebidas oscuras: whisky, ron añejo, vino tinto" at={c("oscuras") - 2} y={380} />
+      <Headline y={250} lines={[{ text: "Congéneres⁴", at: c("congéneres") - 6, accent: "Congéneres" }]} size={124} />
+      <Sub text="Bourbon vs vodka: peor resaca a igual alcoholemia⁴" at={c("oscuras") - 2} y={380} />
       <Sfx name="click" at={c("oscuras") + 20} volume={0.25} />
     </BeatShell>
   );
@@ -118,7 +118,7 @@ const Velocidad: React.FC = () => {
           size: 112,
         }))}
       />
-      <Sub text="También cuenta el cómo⁴" at={4} y={380} />
+      <Sub text="También cuenta el cómo⁵" at={4} y={380} />
     </BeatShell>
   );
 };
@@ -129,7 +129,7 @@ const Porque: React.FC = () => {
   return (
     <BeatShell beat="porque" dark={lift}>
       <Headline y={760} color={K.white} lines={[{ text: "El mito parece cierto.", at: 4, until: lift - 2, size: 132 }]} />
-      <Headline y={250} lines={[{ text: "Se pierde la cuenta.", at: c("cuenta") - 10, accent: "cuenta", size: 108 }]} />
+      <Headline y={250} lines={[{ text: "Se pierde la cuenta.⁶", at: c("cuenta") - 10, accent: "cuenta", size: 108 }]} />
       <Sfx name="click" at={c("mezclar")} volume={0.25} />
       <Sfx name="click" at={c("mezclar") + 18} volume={0.25} />
       <Sfx name="click" at={c("mezclar") + 36} volume={0.25} />
@@ -142,7 +142,7 @@ const Chile: React.FC = () => {
   return (
     <BeatShell beat="chile">
       <Headline y={250} lines={[{ text: "47,2 %", at: c("mitad") - 8, accent: "47,2 %", size: 180, weight: 500 }]} />
-      <Sub text="de quienes bebieron el último mes en Chile se emborrachó al menos una vez⁵" at={c("mitad") + 2} y={390} />
+      <Sub text="de quienes bebieron el último mes en Chile se emborrachó al menos una vez⁷" at={c("mitad") + 2} y={390} />
     </BeatShell>
   );
 };

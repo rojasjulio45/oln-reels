@@ -18,7 +18,7 @@ export const NARRATION = {
   higado: "Tu hígado *procesa* cerca de *un trago* por hora. Si entra más rápido, el nivel *sube*.",
   congeneres: "Lo que sí influye: los *congéneres*. Las bebidas *oscuras*, como el whisky, suelen dejar peor resaca que el vodka.",
   velocidad: "También la *velocidad*, el estómago *vacío*, las *burbujas* y dormir *poco*.",
-  porque: "Y el mito parece cierto porque al *mezclar* se pierde la *cuenta*, y lo dulce esconde el alcohol.",
+  porque: "Y el mito parece cierto porque al *mezclar* se pierde la *cuenta*, y los tragos dulces disimulan el alcohol.",
   chile: "En Chile, según SENDA, casi la *mitad* de quienes bebieron el último mes se emborrachó al menos una vez.",
   ctaLinkedIn: "El *orden* no importa. La *cantidad*, sí. ¿Qué mito te enseñaron a ti? Te leo en *comentarios*.",
   ctaInstagram: "El *orden* no importa. La *cantidad* y el cómo, sí. *Guárdalo* para la próxima vez que alguien diga: no mezcles.",
@@ -30,17 +30,17 @@ export const AUTHOR = "Julio Rojas";
 
 // Footnote line per beat (small grey, like a keynote's legal line).
 export const SOURCES: Record<BeatKey, string> = {
-  hookLinkedIn: "¹ Köchling et al., American Journal of Clinical Nutrition, 2019",
-  hookInstagram: "¹ Köchling et al., American Journal of Clinical Nutrition, 2019",
-  ensayo: "¹ Köchling et al., AJCN 2019 · 90 participantes, cerveza lager y vino blanco",
-  realidad: "¹ Köchling et al., 2019 · NIAAA, Hangovers",
-  higado: "² NIAAA, Alcohol Metabolism · promedio; varía según la persona",
-  congeneres: "³ Rohsenow et al., Alcoholism: Clinical and Experimental Research, 2010 · Mayo Clinic · evidencia aún limitada",
-  velocidad: "⁴ NHS 111 Wales · Mayo Clinic · Roberts & Robinson, J. Forensic and Legal Medicine, 2007",
-  porque: "¹ Köchling et al., 2019 · The Conversation, Monday's medical myth",
-  chile: "⁵ SENDA, Décimo Sexto Estudio Nacional de Drogas en Población General, 2024 (publicado en 2025)",
-  ctaLinkedIn: "Fuentes: AJCN 2019 · NIAAA · Mayo Clinic · NHS · SENDA",
-  ctaInstagram: "Fuentes: AJCN 2019 · NIAAA · Mayo Clinic · NHS · SENDA",
+  hookLinkedIn: "¹ Köchling et al., American Journal of Clinical Nutrition, 2019; 109(2): 345–352",
+  hookInstagram: "¹ Köchling et al., American Journal of Clinical Nutrition, 2019; 109(2): 345–352",
+  ensayo: "¹ Köchling et al., Am J Clin Nutr 2019 · 90 personas, ensayo cruzado, cerveza lager y vino blanco",
+  realidad: "¹ Köchling et al., 2019 · ² Mackus et al., J Clin Med 2020: la concentración de etanol predice la resaca",
+  higado: "³ NIAAA, Alcohol Metabolism · Jones, Forensic Sci Int 2010 · promedio; varía según la persona",
+  congeneres: "⁴ Rohsenow et al., Alcohol Clin Exp Res 2010 (bourbon vs vodka, 95 personas) · Rohsenow & Howland, 2010 · evidencia limitada",
+  velocidad: "⁵ Jones & Jönsson, J Forensic Sci 1994 · Roberts & Robinson, J Forensic Leg Med 2007 · van Schrojenstein Lantman et al., Nat Sci Sleep 2017",
+  porque: "⁶ NIAAA, Hangovers · Marczinski & Stamates, Alcohol Clin Exp Res 2013 · Köchling et al., 2019",
+  chile: "⁷ SENDA, Décimo Sexto Estudio Nacional de Drogas en Población General, 2024 (publicado en 2025)",
+  ctaLinkedIn: "Fuentes: Am J Clin Nutr 2019 · Alcohol Clin Exp Res 2010 y 2013 · J Clin Med 2020 · Nat Sci Sleep 2017 · NIAAA · SENDA",
+  ctaInstagram: "Fuentes: Am J Clin Nutr 2019 · Alcohol Clin Exp Res 2010 y 2013 · J Clin Med 2020 · Nat Sci Sleep 2017 · NIAAA · SENDA",
 };
 
 export const VARIANTS = {

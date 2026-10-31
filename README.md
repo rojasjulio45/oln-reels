@@ -23,12 +23,12 @@ El reel sigue la idea de la skill **Anatomy** (`.claude/skills/anatomy`, MIT): e
 | `src/reel/kit.tsx` | Tipografía keynote: titulares, subtítulos por frases, notas al pie y SFX |
 | `src/iso/` | Kit de Anatomy (`iso-kit.ts`, `iso.css`, `draw.tsx`) |
 | `scripts/build-reel-audio.mjs` | Sintetiza los SFX (clic, goteo, campana) y una música de 78 BPM sin batería ajustada a las escenas |
-| `scripts/generate-voice-elevenlabs.py` | Voz Jessica (ElevenLabs v3) por escena, con `--tempo` para quedar bajo 60 s |
+| `scripts/generate-voice-elevenlabs.py` | Voz por escena con ElevenLabs v3 (Martín Solís, voz chilena de la biblioteca; `--voice` para probar otra, `--reprocess` para cambiar el `--tempo` sin volver a llamar a la API) |
 
 ```bash
 npm i
 npm run dev            # genera la música y abre Remotion Studio
-python3 scripts/generate-voice-elevenlabs.py --tempo 1.12   # voz (la clave la inyecta el entorno)
+python3 scripts/generate-voice-elevenlabs.py --tempo 1.1    # voz Martín Solís, ElevenLabs v3 (la clave la inyecta el entorno)
 node scripts/build-reel-audio.mjs                           # música ajustada a la voz
 npm run render:reels   # exporta las dos versiones y las comprime (~7 MB c/u)
 ```

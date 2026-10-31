@@ -11,3 +11,4 @@ public/reel/bgm-*.wav
 
 # Voice models downloaded by scripts/generate-voice.py
 .voices
+public/reel/narration/raw
