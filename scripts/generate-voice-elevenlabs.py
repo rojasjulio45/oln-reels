@@ -16,22 +16,22 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-VOICE = "0mAmJOs5QSoLsncK0QRu"  # Martín Solís (chileno, narrador documental); antes: Jessica cgSgspJ2msm6clMCkdW9
+VOICE = "85ilFs2t5qHaaSGUtLFW"  # Kadrath, narrador argentino enérgico (biblioteca). Antes: Martín Solís 0mAmJOs5QSoLsncK0QRu, Jessica cgSgspJ2msm6clMCkdW9
 PERFORMANCE = {
-    # (text, stability). A passionate science narrator: 0.4–0.5 lets the delivery
-    # lift on the findings; 0.55 keeps the data lines even. Acronyms are written
-    # as spoken (Senda), never letter by letter.
-    "hookLinkedIn": ("[confident] Noventa personas bebieron cerveza y vino en los dos órdenes posibles. [excited] La resaca fue la misma.", 0.45),
-    "hookInstagram": ("[curious] ¿Cerveza y después vino te da más resaca? [confident] Un ensayo clínico dice que no.", 0.4),
-    "ensayo": ("Un ensayo clínico de 2019 lo probó con noventa personas: cerveza y luego vino, o al revés. [excited] La resaca fue la misma.", 0.5),
-    "realidad": ("[calm] Lo que importa es cuánto etanol entra... y cuánto alcanza a salir.", 0.5),
-    "higado": ("Tu hígado procesa cerca de un trago por hora. [curious] Si entra más rápido, el nivel sube.", 0.5),
-    "congeneres": ("Lo que sí influye: los congéneres. Las bebidas oscuras, como el whisky, suelen dejar peor resaca que el vodka.", 0.55),
-    "velocidad": ("También la velocidad, el estómago vacío, las burbujas, y dormir poco.", 0.55),
-    "porque": ("[curious] Y el mito parece cierto porque al mezclar se pierde la cuenta, y los tragos dulces disimulan el alcohol.", 0.5),
-    "chile": ("En Chile, según Senda, casi la mitad de quienes bebieron el último mes se emborrachó al menos una vez.", 0.55),
-    "ctaLinkedIn": ("[confident] El orden no importa. La cantidad, sí. [warm] ¿Qué mito te enseñaron a ti? Te leo en comentarios.", 0.4),
-    "ctaInstagram": ("[confident] El orden no importa. La cantidad y el cómo, sí. [warm] Guárdalo para la próxima vez que alguien diga: no mezcles.", 0.4),
+    # (text, stability). A dynamic science narrator: lower stability lets the
+    # delivery move, with lifts on the findings and a warm close. Acronyms are
+    # written as spoken (Senda), never letter by letter.
+    "hookLinkedIn": ("[excited] Noventa personas bebieron cerveza y vino en los dos órdenes posibles. [surprised] ¿Y la resaca? Fue la misma.", 0.35),
+    "hookInstagram": ("[curious] ¿Cerveza y después vino te da más resaca? [excited] Un ensayo clínico dice que no.", 0.35),
+    "ensayo": ("[enthusiastic] Un ensayo clínico de 2019 lo probó con noventa personas: cerveza y luego vino, o al revés. [excited] ¡La resaca fue la misma!", 0.4),
+    "realidad": ("[serious] Lo que importa es cuánto etanol entra... [curious] y cuánto alcanza a salir.", 0.45),
+    "higado": ("[confident] Tu hígado procesa cerca de un trago por hora. [excited] Si entra más rápido, el nivel sube.", 0.4),
+    "congeneres": ("[curious] Lo que sí influye: los congéneres. [confident] Las bebidas oscuras, como el whisky, suelen dejar peor resaca que el vodka.", 0.45),
+    "velocidad": ("[excited] También la velocidad, el estómago vacío, las burbujas... y dormir poco.", 0.4),
+    "porque": ("[curious] Y el mito parece cierto porque al mezclar se pierde la cuenta, [confident] y los tragos dulces disimulan el alcohol.", 0.4),
+    "chile": ("[serious] En Chile, según Senda, casi la mitad de quienes bebieron el último mes se emborrachó al menos una vez.", 0.5),
+    "ctaLinkedIn": ("[confident] El orden no importa. La cantidad, sí. [warm] ¿Qué mito te enseñaron a ti? Te leo en comentarios.", 0.35),
+    "ctaInstagram": ("[confident] El orden no importa. La cantidad y el cómo, sí. [warm] Guárdalo para la próxima vez que alguien diga: ¡no mezcles!", 0.35),
 }
 
 

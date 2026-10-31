@@ -16,6 +16,7 @@ import {
   segment,
   sideArc,
   slabOf,
+  topMatrix,
   topTicks,
   towardViewer,
   translateAlong,
@@ -35,7 +36,8 @@ export type Item =
   | { kind: "line"; d: string; tone?: LineTone; free?: boolean | "start" | "end"; cls?: string; width?: number; opacity?: number }
   | { kind: "dots"; points: Flat[]; size?: number; tone?: Tone }
   | { kind: "halo"; d: string; blur?: number; opacity?: number }
-  | { kind: "fill"; d: string; fill: string; opacity: number };
+  | { kind: "fill"; d: string; fill: string; opacity: number }
+  | { kind: "text"; transform: string; text: string; size?: number; tone?: Tone; anchor?: "start" | "middle" | "end" };
 
 export interface Group {
   name: string;
@@ -61,40 +63,81 @@ const facingDeg = (P: Projection) => {
   return Math.atan2(vy, vx) / RAD;
 };
 
+// The drinks are the one place with colour: each bottle's liquid shows
+// through thin glass, and the label plate on the manifold names it.
+export const TINT: Record<Bottle, { color: string; alpha: number }> = {
+  beer: { color: "#d9960f", alpha: 0.5 },
+  wine: { color: "#7a1530", alpha: 0.64 },
+  whisky: { color: "#8a4a12", alpha: 0.6 },
+};
+export const NAME: Record<Bottle, string> = { beer: "CERVEZA", wine: "VINO", whisky: "BOURBON" };
+export const CLAMP_Z: Record<Bottle, number> = { beer: 139, wine: 139, whisky: 131 };
+
+const tinted = (paths: SolidPaths, kind: Bottle, extraAlpha = 1): Item => ({
+  kind: "solid",
+  paths,
+  tone: "mid",
+  crease: "none",
+  cls: "bench-tint",
+  style: { "--tint": TINT[kind].color, "--tint-a": TINT[kind].alpha * extraAlpha },
+});
+const glass = (paths: SolidPaths, lit = false): Item => ({ kind: "solid", paths, tone: "mid", crease: "none", cls: "bench-bottle", lit });
+
 function bottleParts(P: Projection, kind: Bottle, bx: number, lit: boolean): Item[] {
   const by = V.BOTTLE_Y;
+  const top = V.MANIFOLD_TOP;
   const items: Item[] = [];
-  const neckTop = kind === "beer" ? 112 : 111;
-  const bodyZ = 116;
-  const bodyTop = kind === "beer" ? 146 : kind === "wine" ? 146.5 : 140;
-  const bodyR = kind === "beer" ? 6.5 : 7.5;
-  const dark = kind === "whisky" ? "bench-dark" : undefined;
-  // Inverted bottle: neck at the bottom, base at the top.
-  items.push(solid(cylinder(bx, by, V.NECK_R, V.MANIFOLD_TOP, neckTop - V.MANIFOLD_TOP, P, 20), "mid", { crease: "none", cls: dark }));
-  items.push(solid(cylinder(bx, by, 5.4, neckTop, bodyZ - neckTop, P, 24), "mid", { cls: dark }));
-  if (kind === "whisky") {
-    const plan: Plan = { x: bx - 7.5, y: by - 7.5, w: 15, d: 15, r: 3 };
-    items.push(solid(slabOf(plan, bodyZ, bodyTop - bodyZ, P, 5, 0.8), "hi", { cls: dark, lit }));
-    items.push(solid(slabOf(insetPlan(plan, -0.4), bodyTop, 1.6, P, 5), "mid", { cls: dark }));
-    items.push(line(planOutline(insetPlan(plan, 2.4), bodyTop + 1.6, P, 5), "faint"));
+  if (kind === "beer") {
+    // Long neck, short shoulder, slim body: a beer bottle upside down.
+    items.push(tinted(cylinder(bx, by, 1.8, top, 17, P, 12), kind));
+    items.push(tinted(cylinder(bx, by, 5.5, 122.5, 23.5, P, 32), kind));
+    items.push(glass(cylinder(bx, by, 2.4, top, 17, P, 20)));
+    items.push(glass(cylinder(bx, by, 4.2, 117, 3, P, 24)));
+    items.push(glass(cylinder(bx, by, 5.6, 120, 2, P, 28)));
+    items.push(glass(cylinder(bx, by, 6.2, 122, 25, P, 36), lit));
+    items.push(solid(cylinder(bx, by, 6.35, 126, 8, P, 36), "hi", { crease: "none" }));
+    items.push(line(sideArc(bx, by, 6.4, 129, P, 20) + sideArc(bx, by, 6.4, 131.2, P, 20), "faint", { free: true }));
+    items.push(solid(cylinder(bx, by, 6.4, 147, 1.4, P, 36), "mid"));
+  } else if (kind === "wine") {
+    // Bordeaux shoulder and a tall body.
+    items.push(tinted(cylinder(bx, by, 2.0, top, 13, P, 12), kind));
+    items.push(tinted(cylinder(bx, by, 6.3, 119.5, 26.5, P, 32), kind));
+    items.push(glass(cylinder(bx, by, 2.6, top, 13, P, 20)));
+    items.push(glass(cylinder(bx, by, 4.4, 113, 3, P, 24)));
+    items.push(glass(cylinder(bx, by, 6.2, 116, 3, P, 28)));
+    items.push(glass(cylinder(bx, by, 7.0, 119, 28, P, 36), lit));
+    items.push(solid(cylinder(bx, by, 7.15, 124, 10, P, 36), "hi", { crease: "none" }));
+    items.push(line(sideArc(bx, by, 7.2, 127.5, P, 20) + sideArc(bx, by, 7.2, 130.2, P, 20), "faint", { free: true }));
+    items.push(solid(cylinder(bx, by, 7.2, 147, 1.4, P, 36), "mid"));
   } else {
-    items.push(solid(cylinder(bx, by, bodyR, bodyZ, bodyTop - bodyZ, P, 36), "hi", { lit }));
-    // Label band: two seams round the visible half.
-    items.push(line(sideArc(bx, by, bodyR, bodyZ + 9, P, 20) + sideArc(bx, by, bodyR, bodyZ + 21, P, 20), "faint"));
-    items.push(solid(cylinder(bx, by, bodyR + 0.4, bodyTop, 1.6, P, 36), "mid"));
-    items.push(line(ring(bx, by, bodyR - 2.2, bodyTop + 1.6, P, 36), "faint"));
+    // Square bourbon bottle with a short neck.
+    const plan: Plan = { x: bx - 7.5, y: by - 7.5, w: 15, d: 15, r: 2.5 };
+    items.push(tinted(cylinder(bx, by, 2.2, top, 7, P, 12), kind));
+    items.push(tinted(slabOf(insetPlan(plan, 1.2), 111.5, 25.5, P, 4), kind));
+    items.push(glass(cylinder(bx, by, 3, top, 7, P, 20)));
+    items.push(glass(slabOf({ x: bx - 5.5, y: by - 5.5, w: 11, d: 11, r: 3.5 }, 107, 4, P, 5)));
+    items.push(glass(slabOf(plan, 111, 28, P, 5, 0.6), lit));
+    items.push(solid(slabOf(insetPlan(plan, -0.25), 117, 9, P, 5), "hi", { crease: "none" }));
+    items.push(line(planOutline(insetPlan(plan, 2.4), 139, P, 5), "faint"));
+    items.push(solid(slabOf(insetPlan(plan, -0.3), 139, 1.4, P, 5), "mid"));
   }
-  // Hose clamp holding the body, and its arm back to the bar.
-  const clampR = (kind === "whisky" ? 8.2 : bodyR) + 1.3;
-  items.push(solid(cylinder(bx, by, clampR, V.BAND_Z, 3, P, 36), "mid"));
-  items.push(line(knurl(bx, by, clampR, V.BAND_Z, V.BAND_Z + 3, 44, P, 0.5), "faint"));
+  // Hose clamp holding the body to the rack.
+  const z = CLAMP_Z[kind];
+  if (kind === "whisky") {
+    items.push(solid(slabOf({ x: bx - 8.8, y: by - 8.8, w: 17.6, d: 17.6, r: 3.2 }, z, 3, P, 5, 0.4), "mid"));
+  } else {
+    const clampR = (kind === "beer" ? 6.2 : 7.0) + 1.3;
+    items.push(solid(cylinder(bx, by, clampR, z, 3, P, 36), "mid"));
+    items.push(line(knurl(bx, by, clampR, z, z + 3, 44, P, 0.5), "faint"));
+  }
   return items;
 }
 
 function clampArm(P: Projection, bx: number, kind: Bottle): Item[] {
-  const clampR = (kind === "whisky" ? 8.2 : kind === "beer" ? 6.5 : 7.5) + 1.3;
+  const clampR = kind === "whisky" ? 8.8 : (kind === "beer" ? 6.2 : 7.0) + 1.3;
+  const z = CLAMP_Z[kind];
   const arm: Plan = { x: bx - 2.5, y: V.BAR.y + V.BAR.d - 4, w: 5, d: V.BOTTLE_Y - clampR - (V.BAR.y + V.BAR.d - 4) + 0.3, r: 1 };
-  return [solid(slabOf(arm, V.BAND_Z - 0.5, 4, P, 3, 0.4), "mid"), dots([V.at(P, [bx, arm.y + 2, V.BAND_Z + 3.5])], 0.45)];
+  return [solid(slabOf(arm, z - 0.5, 4, P, 3, 0.4), "mid"), dots([V.at(P, [bx, arm.y + 2, z + 3.5])], 0.45)];
 }
 
 export function buildBench(P: Projection, s: BenchState): Group[] {
@@ -200,6 +243,11 @@ export function buildBench(P: Projection, s: BenchState): Group[] {
     manifold.push(line(knurl(kx, V.BOTTLE_Y, 2.6, V.MANIFOLD_TOP, V.MANIFOLD_TOP + 3.4, 18, P), "lo"));
     const a = (-90 + 80 * open) * RAD;
     manifold.push(line(lineOnTop([kx, V.BOTTLE_Y], [kx + 2.2 * Math.cos(a), V.BOTTLE_Y + 2.2 * Math.sin(a)], V.MANIFOLD_TOP + 3.4, P), open > 0.05 ? "lit" : "hi"));
+    // Engraved name plate in front of the port.
+    const plate: Plan = { x: bx - 7.5, y: -21.8, w: 15, d: 5.4, r: 1 };
+    manifold.push(solid(slabOf(plate, V.MANIFOLD_TOP, 0.8, P, 3), "lo", { crease: "none" }));
+    manifold.push(line(planOutline(insetPlan(plate, 0.9), V.MANIFOLD_TOP + 0.8, P, 3), "faint"));
+    manifold.push({ kind: "text", transform: topMatrix([bx, -18.1], V.MANIFOLD_TOP + 0.8, P, "x"), text: NAME[kind], size: 2.5, tone: "hi", anchor: "middle" });
   });
   // Spout, first leg: along x behind the tank, to the first elbow.
   const spoutY = V.BOTTLE_Y;
@@ -240,7 +288,8 @@ export function buildBench(P: Projection, s: BenchState): Group[] {
   const [tx, ty] = V.TANK;
   const level = V.levelZ(s.drinks);
   const tank: Item[] = [];
-  if (level > V.TANK_Z + 0.2) tank.push(solid(cylinder(tx, ty, V.TANK_R - 1, V.TANK_Z, level - V.TANK_Z, P, 48), "mid", { cls: "bench-liquid", crease: "none" }));
+  const MIX = { kind: "solid" as const, tone: "mid" as const, crease: "none" as const, cls: "bench-tint", style: { "--tint": "#d9a441", "--tint-a": 0.34 } };
+  if (level > V.TANK_Z + 0.2) tank.push({ ...MIX, paths: cylinder(tx, ty, V.TANK_R - 1, V.TANK_Z, level - V.TANK_Z, P, 48) });
   // Fizz: small bubbles rising in the liquid.
   if (s.bubbles > 0.02 && level > V.TANK_Z + 6) {
     const pts: Flat[] = [];
@@ -255,7 +304,9 @@ export function buildBench(P: Projection, s: BenchState): Group[] {
   // Stream from the nozzle to the surface while pouring.
   if (s.pouring && s.pourFlow > 0.03) {
     const r = 0.5 + 0.7 * s.pourFlow;
-    tank.push(solid(cylinder(V.SPOUT_X, ty, r, level, V.NOZZLE_Z - level, P, 12), "mid", { cls: "bench-liquid bench-stream", crease: "none" }));
+    const stream = tinted(cylinder(V.SPOUT_X, ty, r, level, V.NOZZLE_Z - level, P, 12), s.pouring, 1.4);
+    if (stream.kind === "solid") stream.cls = "bench-tint bench-stream";
+    tank.push(stream);
   }
   // Float and plunger rod (the rod rises into the gauge; it rides the gauge assembly).
   const floatTop = level + V.FLOAT_H;
@@ -316,7 +367,7 @@ export function buildBench(P: Projection, s: BenchState): Group[] {
   // Cup with what has drained so far; drops in flight.
   const [cx, cy] = V.CUP;
   const cupLevel = 0.6 + Math.min(V.CUP_H - 1.5, s.drained * 2.2);
-  valve.push(solid(cylinder(cx, cy, V.CUP_R - 0.9, 0.4, cupLevel, P, 36), "mid", { cls: "bench-liquid", crease: "none" }));
+  valve.push({ ...MIX, paths: cylinder(cx, cy, V.CUP_R - 0.9, 0.4, cupLevel, P, 36) });
   if (s.valveOpen > 0.05) {
     const pts: Flat[] = [];
     const fall = 12 - 1.2 - cupLevel;

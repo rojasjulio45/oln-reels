@@ -1,13 +1,15 @@
 import React from "react";
-import { Dots, Line, Solid } from "../../iso/draw";
+import type { Projection } from "../../iso/iso-kit";
+import { Dots, FaceText, Line, Solid } from "../../iso/draw";
 import { buildBench, type Group, type Item } from "./geometry";
 import { BenchState } from "./model";
-import { VIEW_H, VIEW_W, projectionAt } from "./view";
 
 const ItemView: React.FC<{ item: Item }> = ({ item }) => {
   switch (item.kind) {
-    case "solid":
-      return <Solid paths={item.paths} tone={item.tone} crease={item.crease} lit={item.lit} flat={item.flat} className={item.cls} />;
+    case "solid": {
+      const solid = <Solid paths={item.paths} tone={item.tone} crease={item.crease} lit={item.lit} flat={item.flat} className={item.cls} />;
+      return item.style ? <g style={item.style as React.CSSProperties}>{solid}</g> : solid;
+    }
     case "line":
       return (
         <g style={{ opacity: item.opacity }}>
@@ -21,6 +23,12 @@ const ItemView: React.FC<{ item: Item }> = ({ item }) => {
       return <path className="iso-halo" d={item.d} />;
     case "fill":
       return <path d={item.d} fill={item.fill} opacity={item.opacity} stroke="none" />;
+    case "text":
+      return (
+        <FaceText transform={item.transform} size={item.size} tone={item.tone} anchor={item.anchor}>
+          {item.text}
+        </FaceText>
+      );
   }
 };
 
@@ -32,13 +40,12 @@ const GroupView: React.FC<{ group: Group }> = ({ group }) => (
   </g>
 );
 
-// The whole bench as one SVG, drawn for one model state. `width` sets the
-// rendered size; the viewBox stays constant so the camera drift never rescales.
-export const Bench: React.FC<{ state: BenchState; width: number }> = ({ state, width }) => {
-  const P = projectionAt(state.azimuth);
+// The whole bench as one SVG for one model state, seen through one camera:
+// `P` is the projection (azimuth and elevation) and `viewBox` the framing.
+export const Bench: React.FC<{ state: BenchState; P: Projection; viewBox: [number, number, number, number]; width: number; height: number }> = ({ state, P, viewBox, width, height }) => {
   const groups = buildBench(P, state);
   return (
-    <svg className="iso-svg bench" viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} width={width} height={(width * VIEW_H) / VIEW_W} role="img" aria-label="Banco de ensayo">
+    <svg className="iso-svg bench" viewBox={viewBox.join(" ")} width={width} height={height} preserveAspectRatio="xMidYMid slice" role="img" aria-label="Banco de ensayo">
       {groups.map((g) => (
         <GroupView key={g.name} group={g} />
       ))}

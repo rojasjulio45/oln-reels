@@ -12,23 +12,24 @@ El proyecto tiene tres composiciones:
 
 Las dos versiones comparten el cuerpo y cambian el hook y el cierre. Los textos para publicar y la ficha de fuentes están en `reel-copy-resaca.md`.
 
-El reel sigue la idea de la skill **Anatomy** (`.claude/skills/anatomy`, MIT): el objeto es la explicación. Un banco de ensayo isométrico, dibujado pieza por pieza con el kit de Anatomy (`src/iso/`), hace de modelo: tres botellas invertidas llenan por un colector un tanque graduado, un flotador mueve la aguja de un indicador de carátula que marca el etanol total, una válvula de goteo drena al ritmo del hígado y una bandeja de sedimentos se oscurece con las bebidas oscuras. El aparato es continuo durante todo el reel; las escenas son estados de la misma máquina y los textos entran y salen con fundidos. La estética es de keynote: fondo claro, Inter Display, un solo acento azul, dos interludios en negro, sin flashes ni vibración.
+El reel sigue la idea de la skill **Anatomy** (`.claude/skills/anatomy`, MIT): el objeto es la explicación. Un banco de ensayo isométrico, dibujado pieza por pieza con el kit de Anatomy (`src/iso/`), hace de modelo: tres botellas invertidas llenan por un colector un tanque graduado, un flotador mueve la aguja de un indicador de carátula que marca el etanol total, una válvula de goteo drena al ritmo del hígado y una bandeja de sedimentos se oscurece con las bebidas oscuras. El aparato es continuo durante todo el reel; las escenas son estados de la misma máquina y una cámara de producto (`src/reel/bench/camera.ts`) va a cada pieza cuando la narración la nombra: zooms, giros de azimut, cambios de elevación y un rótulo corto sobre la pieza. La estética es de keynote: fondo claro, Inter Display, un solo acento azul, dos interludios en negro, sin flashes ni vibración.
 
 | Archivo | Qué contiene |
 |---|---|
 | `src/reel/script.ts` | Guion (`NARRATION`), fuentes por escena (`SOURCES`), versiones (`VARIANTS`), tiempos por palabra y por frase |
 | `src/reel/bench/model.ts` | Modelo puro: vertidos, drenaje, pieza iluminada, despiece y cámara por fotograma (`programOf`, `stateAt`) |
-| `src/reel/bench/view.ts`, `geometry.ts`, `Bench.tsx` | Mundo, piezas (64) en orden de pintor y el SVG del banco |
+| `src/reel/bench/view.ts`, `geometry.ts`, `Bench.tsx` | Mundo, piezas (70) en orden de pintor y el SVG del banco |
+| `src/reel/bench/camera.ts` | Planos sobre las palabras del guion: foco, zoom, azimut, elevación, deriva lenta y rótulo |
 | `src/reel/beats/Beats.tsx` | Titulares y notas de cada escena |
 | `src/reel/kit.tsx` | Tipografía keynote: titulares, subtítulos por frases, notas al pie y SFX |
 | `src/iso/` | Kit de Anatomy (`iso-kit.ts`, `iso.css`, `draw.tsx`) |
 | `scripts/build-reel-audio.mjs` | Sintetiza los SFX (clic, goteo, campana) y una música de 78 BPM sin batería ajustada a las escenas |
-| `scripts/generate-voice-elevenlabs.py` | Voz por escena con ElevenLabs v3 (Martín Solís, voz chilena de la biblioteca; `--voice` para probar otra, `--reprocess` para cambiar el `--tempo` sin volver a llamar a la API) |
+| `scripts/generate-voice-elevenlabs.py` | Voz por escena con ElevenLabs v3 (Kadrath, narrador argentino de la biblioteca; `--voice` para probar otra, `--reprocess` para cambiar el `--tempo` sin volver a llamar a la API) |
 
 ```bash
 npm i
 npm run dev            # genera la música y abre Remotion Studio
-python3 scripts/generate-voice-elevenlabs.py --tempo 1.1    # voz Martín Solís, ElevenLabs v3 (la clave la inyecta el entorno)
+python3 scripts/generate-voice-elevenlabs.py --tempo 1.12   # voz Kadrath (narrador argentino), ElevenLabs v3 (la clave la inyecta el entorno)
 node scripts/build-reel-audio.mjs                           # música ajustada a la voz
 npm run render:reels   # exporta las dos versiones y las comprime (~7 MB c/u)
 ```

@@ -60,16 +60,13 @@ const Ensayo: React.FC = () => {
 
 const Realidad: React.FC = () => {
   const c = (s: string) => cue("realidad", s);
+  const lift = c("salir") - 10;
   return (
-    <BeatShell beat="realidad" dark>
-      <Headline
-        y={760}
-        color={K.white}
-        lines={[
-          { text: "Cuánto entra.", at: c("cuánto") - 6, size: 150 },
-          { text: "Cuánto sale.", at: c("salir") - 10, size: 150 },
-        ]}
-      />
+    <BeatShell beat="realidad" dark={lift}>
+      <Headline y={760} color={K.white} lines={[{ text: "Cuánto entra.", at: c("cuánto") - 6, until: lift - 2, size: 150 }]} />
+      <Headline y={250} lines={[{ text: "Cuánto sale.", at: lift + 2, size: 132 }]} />
+      <Sub text="La concentración de etanol predice la resaca²" at={lift + 14} y={380} />
+      <Sfx name="drip" at={lift + 10} volume={0.2} />
     </BeatShell>
   );
 };

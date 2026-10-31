@@ -92,6 +92,6 @@ const FIT_POINTS: Point3[] = [
 // One fit at the base azimuth, so a drifting camera never rescales the figure.
 const BASE_P = fitProjection(FIT_POINTS, VIEW_W, VIEW_H, { pad: 40, azimuth: AZIMUTH, elevation: ELEVATION });
 
-export const projectionAt = (azimuth: number): Projection => ({ ...BASE_P, azimuth });
+export const projectionAt = (azimuth: number, elevation = ELEVATION): Projection => ({ ...BASE_P, azimuth, elevation });
 
 export const at = (P: Projection, point: Point3) => iso(point, P);

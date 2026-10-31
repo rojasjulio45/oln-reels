@@ -1,6 +1,6 @@
 # Reel «¿Mezclar alcoholes da más resaca?»: textos para publicar
 
-Dos versiones del mismo reel vertical (1080×1920, menos de 60 s, ~7 MB), narradas por una voz masculina chilena (ElevenLabs v3) y firmadas por Julio Rojas, con la fuente de cada dato en una línea gris al pie de cada escena. El objeto es la explicación: un banco de ensayo isométrico (skill Anatomy, MIT) con tres botellas invertidas, un tanque graduado, un indicador de carátula que marca el etanol total, una válvula de goteo que hace de hígado y una bandeja de sedimentos para los congéneres. Cambian el hook y el cierre:
+Dos versiones del mismo reel vertical (1080×1920, menos de 60 s, ~7 MB), narradas por una voz masculina argentina, enérgica (Kadrath, ElevenLabs v3) y firmadas por Julio Rojas, con la fuente de cada dato en una línea gris al pie de cada escena. El objeto es la explicación: un banco de ensayo isométrico (skill Anatomy, MIT) con tres botellas invertidas, un tanque graduado, un indicador de carátula que marca el etanol total, una válvula de goteo que hace de hígado y una bandeja de sedimentos para los congéneres. Cambian el hook y el cierre:
 
 | Archivo | Hook | Cierre | Skill y regla aplicada |
 |---|---|---|---|

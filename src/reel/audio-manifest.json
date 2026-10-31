@@ -1,46 +1,46 @@
 {
   "hookLinkedIn": {
     "file": "reel/narration/hookLinkedIn.mp3",
-    "durationInSeconds": 6.557
+    "durationInSeconds": 6.087
   },
   "hookInstagram": {
     "file": "reel/narration/hookInstagram.mp3",
-    "durationInSeconds": 4.728
+    "durationInSeconds": 4.833
   },
   "ensayo": {
     "file": "reel/narration/ensayo.mp3",
-    "durationInSeconds": 8.647
+    "durationInSeconds": 7.367
   },
   "realidad": {
     "file": "reel/narration/realidad.mp3",
-    "durationInSeconds": 4.415
+    "durationInSeconds": 4.258
   },
   "higado": {
     "file": "reel/narration/higado.mp3",
-    "durationInSeconds": 5.016
+    "durationInSeconds": 4.989
   },
   "congeneres": {
     "file": "reel/narration/congeneres.mp3",
-    "durationInSeconds": 6.452
+    "durationInSeconds": 6.191
   },
   "velocidad": {
     "file": "reel/narration/velocidad.mp3",
-    "durationInSeconds": 3.683
+    "durationInSeconds": 3.971
   },
   "porque": {
     "file": "reel/narration/porque.mp3",
-    "durationInSeconds": 6.165
+    "durationInSeconds": 5.538
   },
   "chile": {
     "file": "reel/narration/chile.mp3",
-    "durationInSeconds": 6.243
+    "durationInSeconds": 5.695
   },
   "ctaLinkedIn": {
     "file": "reel/narration/ctaLinkedIn.mp3",
-    "durationInSeconds": 5.486
+    "durationInSeconds": 5.042
   },
   "ctaInstagram": {
     "file": "reel/narration/ctaInstagram.mp3",
-    "durationInSeconds": 6.635
+    "durationInSeconds": 6.06
   }
 }

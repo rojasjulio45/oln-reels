@@ -1,6 +1,9 @@
 // Pure model of the bench: what is poured, drained, lit and taken apart at
 // every frame of a variant. Every number the reel shows comes from here.
+import type { Point3 } from "../../iso/iso-kit";
 import { BeatKey, REEL_FPS, VARIANTS, Variant, cue, getBeatDuration, getBeatStarts } from "../script";
+import type { Shot } from "./camera";
+import * as V from "./view";
 import { CAPACITY } from "./view";
 
 export type Bottle = "beer" | "wine" | "whisky";
@@ -20,6 +23,7 @@ export interface Program {
   apartFrom: number; // frames: starts coming apart here (last beat)
   lit: Array<{ from: number; to: number; part: Lit }>;
   dark: Array<[number, number]>; // black interludes
+  shots: Shot[]; // the camera, on the narration's cues
   total: number;
 }
 
@@ -98,8 +102,9 @@ export function programOf(variant: Variant): Program {
   pours.push({ start: c("ensayo", "revés") + sec(1.0), duration: sec(0.9), bottle: "beer", amount: 0.5 });
   lit.push({ from: c("ensayo", "misma"), to: end("ensayo"), part: "needle" });
 
-  // Realidad: black interlude.
-  dark.push([starts.realidad, end("realidad")]);
+  // Realidad: black for the first phrase, then the tank with the valve cracked open at "salir".
+  dark.push([starts.realidad, c("realidad", "salir") - 10]);
+  valve.push([c("realidad", "salir") - 6, end("realidad")]);
 
   // Hígado: the drain valve opens and drips at the liver's pace.
   valve.push([c("higado", "procesa"), end("higado") + sec(0.4)]);
@@ -128,6 +133,7 @@ export function programOf(variant: Variant): Program {
 
   // Cierre: a slow exploded view.
   const cta = keys[keys.length - 1];
+  const shots = shotsOf(variant, starts, c, end);
   return {
     pours,
     valve,
@@ -135,8 +141,101 @@ export function programOf(variant: Variant): Program {
     apartFrom: starts[cta] + sec(0.3),
     lit,
     dark,
+    shots,
     total,
   };
+}
+
+// ---------- camera ----------
+// Points of interest, in world units.
+const BEER: Point3 = [V.BOTTLE_XS[0], V.BOTTLE_Y, 128];
+const WINE: Point3 = [V.BOTTLE_XS[1], V.BOTTLE_Y, 128];
+const BOURBON: Point3 = [V.BOTTLE_XS[2], V.BOTTLE_Y, 124];
+const RACK: Point3 = [-72, V.BOTTLE_Y, 118];
+const DIAL: Point3 = [V.TANK[0], V.TANK[1], 127];
+const TANK: Point3 = [V.TANK[0], V.TANK[1], 44];
+const TANK_HIGH: Point3 = [V.TANK[0], V.TANK[1], 72];
+const NOZZLE: Point3 = [V.SPOUT_X, V.TANK[1], 70];
+const VALVE: Point3 = [V.VALVE[0] + 4, V.VALVE[1], 20];
+const CUP: Point3 = [V.CUP[0] - 3, V.CUP[1], 8];
+const DRAWER: Point3 = [V.DRAWER_X + V.DRAWER_W / 2, V.DRAWER_FRONT_Y + 26, -6];
+const BASE_LOW: Point3 = [V.TANK[0], V.TANK[1], 18];
+const WIDE: Point3 = [-8, 10, 62];
+const WIDE_HIGH: Point3 = [-8, 10, 78];
+
+const WIDE_Z = 0.95;
+const MEDIUM = 2.0; // the tank and its gauge
+const RACK_Z = 2.3; // the three bottles
+const CLOSE = 4.8; // one bottle
+const TIGHT = 4.2; // the dial face
+
+type Cue = (k: BeatKey, word: string) => number;
+
+function shotsOf(variant: Variant, starts: Record<string, number>, c: Cue, end: (k: BeatKey) => number): Shot[] {
+  const shots: Shot[] = [];
+  const add = (shot: Shot) => shots.push(shot);
+  const hook = VARIANTS[variant][0];
+  const cta = VARIANTS[variant][VARIANTS[variant].length - 1];
+  void end;
+
+  // Hook: the bench closes up wide, then the camera goes to each drink and to the dial.
+  add({ at: 0, focus: WIDE, zoom: WIDE_Z, azimuth: 46, elevation: 30, drift: { zoom: 0.06, azimuth: 4 } });
+  if (hook === "hookInstagram") {
+    add({ at: c(hook, "cerveza") - 4, focus: BEER, zoom: CLOSE, azimuth: 36, elevation: 26, move: 22, callout: { text: "Cerveza", point: BEER, side: "right" } });
+    add({ at: c(hook, "vino") - 2, focus: WINE, zoom: CLOSE, azimuth: 44, elevation: 26, move: 18, callout: { text: "Vino", point: WINE, side: "right" } });
+    add({ at: c(hook, "resaca") + 2, focus: TANK_HIGH, zoom: MEDIUM, azimuth: 52, elevation: 32, move: 24 });
+    add({ at: c(hook, "ensayo") - 4, focus: WIDE, zoom: 1.05, azimuth: 60, elevation: 30, move: 26, drift: { azimuth: 6 } });
+    add({ at: c(hook, "no") - 6, focus: DIAL, zoom: TIGHT, azimuth: 56, elevation: 44, move: 20, callout: { text: "Etanol total", point: DIAL, side: "right" } });
+  } else {
+    add({ at: starts[hook] + sec(0.9), focus: BEER, zoom: CLOSE, azimuth: 36, elevation: 26, move: 24, callout: { text: "Cerveza", point: BEER, side: "right" } });
+    add({ at: c(hook, "vino") - 2, focus: WINE, zoom: CLOSE, azimuth: 44, elevation: 26, move: 18, callout: { text: "Vino", point: WINE, side: "right" } });
+    add({ at: c(hook, "órdenes") - 2, focus: RACK, zoom: RACK_Z, azimuth: 30, elevation: 24, move: 22, drift: { azimuth: 24 } });
+    add({ at: c(hook, "misma") - 8, focus: DIAL, zoom: TIGHT, azimuth: 56, elevation: 44, move: 22, callout: { text: "Etanol total", point: DIAL, side: "right" } });
+  }
+
+  // Ensayo: the two drinks, the reverse order as an orbit, the same reading.
+  add({ at: starts.ensayo, focus: WIDE, zoom: 1.0, azimuth: 58, elevation: 30, move: 26, drift: { azimuth: -6 } });
+  add({ at: c("ensayo", "noventa") - 4, focus: RACK, zoom: RACK_Z, azimuth: 40, elevation: 24, move: 22, callout: { text: "Cerveza · vino · bourbon", point: [-72, V.BOTTLE_Y, 150], side: "right" } });
+  add({ at: c("ensayo", "cerveza") - 3, focus: BEER, zoom: CLOSE, azimuth: 34, elevation: 26, move: 18, callout: { text: "Cerveza", point: BEER, side: "right" } });
+  add({ at: c("ensayo", "vino") - 2, focus: WINE, zoom: CLOSE, azimuth: 46, elevation: 26, move: 18, callout: { text: "Vino", point: WINE, side: "right" } });
+  add({ at: c("ensayo", "revés") - 4, focus: RACK, zoom: RACK_Z, azimuth: 44, elevation: 28, move: 22, drift: { azimuth: 30, zoom: 0.02 } });
+  add({ at: c("ensayo", "misma") - 8, focus: DIAL, zoom: TIGHT, azimuth: 60, elevation: 46, move: 22, callout: { text: "Etanol total", point: DIAL, side: "right" } });
+
+  // Realidad: the tank, the liquid and the valve, revealed from black.
+  add({ at: starts.realidad, focus: TANK, zoom: MEDIUM, azimuth: 68, elevation: 26, move: 20, drift: { azimuth: 6, zoom: 0.08 } });
+  add({ at: c("realidad", "salir") - 10, focus: [66, 10, 24], zoom: 3.2, azimuth: 66, elevation: 28, move: 26, callout: { text: "Lo que sale", point: VALVE, side: "right" } });
+
+  // Hígado: the valve opens and drips; the level answers.
+  add({ at: starts.higado, focus: [60, 10, 30], zoom: 2.4, azimuth: 60, elevation: 28, move: 22 });
+  add({ at: c("higado", "procesa") - 4, focus: VALVE, zoom: 4.8, azimuth: 64, elevation: 30, move: 22, drift: { azimuth: 5 }, callout: { text: "Hígado: ≈ 1 trago/hora", point: VALVE, side: "right" } });
+  add({ at: c("higado", "hora") + 2, focus: CUP, zoom: 5.2, azimuth: 70, elevation: 34, move: 20, drift: { zoom: 0.06 } });
+  add({ at: c("higado", "sube") - 10, focus: TANK_HIGH, zoom: MEDIUM, azimuth: 50, elevation: 24, move: 24, drift: { elevation: 6 } });
+
+  // Congéneres: the three bottles, then the bourbon, then the sediment tray.
+  add({ at: starts.congeneres, focus: RACK, zoom: RACK_Z, azimuth: 40, elevation: 26, move: 24, drift: { azimuth: -6 } });
+  add({ at: c("congeneres", "oscuras") - 6, focus: BOURBON, zoom: CLOSE, azimuth: 28, elevation: 24, move: 20, callout: { text: "Bourbon", point: BOURBON, side: "right" } });
+  add({ at: c("congeneres", "suelen") - 4, focus: DRAWER, zoom: 3.2, azimuth: 14, elevation: 32, move: 26, drift: { zoom: 0.05 }, callout: { text: "Congéneres", point: [V.DRAWER_X + V.DRAWER_W / 2, V.DRAWER_FRONT_Y + 16, -2], side: "right" } });
+
+  // Velocidad: the stream, the base, the bubbles from above, then wide.
+  add({ at: starts.velocidad, focus: NOZZLE, zoom: 4.0, azimuth: 56, elevation: 30, move: 24 });
+  add({ at: c("velocidad", "vacío") - 4, focus: BASE_LOW, zoom: 3.0, azimuth: 44, elevation: 18, move: 20 });
+  add({ at: c("velocidad", "burbujas") - 4, focus: TANK, zoom: 3.6, azimuth: 82, elevation: 36, move: 22, callout: { text: "Burbujas", point: [V.TANK[0], V.TANK[1], 52], side: "right" } });
+  add({ at: c("velocidad", "poco") - 4, focus: WIDE_HIGH, zoom: WIDE_Z, azimuth: 40, elevation: 32, move: 26 });
+
+  // Por qué: black, then an orbit across the drinks as they mix, then the needle.
+  const mix = c("porque", "mezclar");
+  add({ at: starts.porque, focus: RACK, zoom: RACK_Z, azimuth: 18, elevation: 26, move: 20, drift: { azimuth: 52 } });
+  add({ at: c("porque", "cuenta") - 6, focus: DIAL, zoom: TIGHT, azimuth: 62, elevation: 48, move: 20, callout: { text: "Etanol total", point: DIAL, side: "right" } });
+  add({ at: c("porque", "dulces") - 4, focus: TANK, zoom: MEDIUM, azimuth: 72, elevation: 28, move: 24, drift: { azimuth: -8 } });
+  void mix;
+
+  // Chile: a slow wide orbit, then the gauge.
+  add({ at: starts.chile, focus: WIDE, zoom: 1.0, azimuth: 70, elevation: 32, move: 26, drift: { azimuth: -28 } });
+  add({ at: c("chile", "emborrachó") - 6, focus: TANK_HIGH, zoom: 1.8, azimuth: 44, elevation: 36, move: 24 });
+
+  // Cierre: pull out and orbit while the bench comes apart.
+  add({ at: starts[cta], focus: WIDE_HIGH, zoom: 1.02, azimuth: 46, elevation: 30, move: 26, drift: { zoom: -0.12, azimuth: 26, elevation: 8 } });
+  return shots;
 }
 
 const CONGENERS: Record<Bottle, number> = { beer: 0.08, wine: 0.18, whisky: 0.55 };
