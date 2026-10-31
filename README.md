@@ -1,37 +1,41 @@
-# ¿Cómo funcionan las OLN en Chile? — videos Remotion
+# Reels y video explicativo en Remotion
 
 El proyecto tiene tres composiciones:
 
 | Composición | Formato | Duración | Salida |
 |---|---|---|---|
-| `ReelLinkedIn` | 1080×1920 (9:16) | ~51 s | `out/oln-reel-linkedin.mp4` |
-| `ReelInstagram` | 1080×1920 (9:16) | ~51 s | `out/oln-reel-instagram.mp4` |
+| `ReelLinkedIn` | 1080×1920 (9:16) | < 60 s | `out/resaca-reel-linkedin.mp4` |
+| `ReelInstagram` | 1080×1920 (9:16) | < 60 s | `out/resaca-reel-instagram.mp4` |
 | `OLNChile` | 1920×1080 (16:9) | ~3 min | `out/oln-chile.mp4` |
 
-## Reel (LinkedIn e Instagram)
+## Reel (LinkedIn e Instagram): ¿mezclar alcoholes da más resaca?
 
-Las dos versiones comparten el cuerpo y cambian el hook y el cierre. Los textos para publicar están en `reel-copy.md`, junto con las reglas de cada skill que se aplicaron.
+Las dos versiones comparten el cuerpo y cambian el hook y el cierre. Los textos para publicar y la ficha de fuentes están en `reel-copy-resaca.md`.
+
+El reel sigue la idea de la skill **Anatomy** (`.claude/skills/anatomy`, MIT): el objeto es la explicación. Un banco de ensayo isométrico, dibujado pieza por pieza con el kit de Anatomy (`src/iso/`), hace de modelo: tres botellas invertidas llenan por un colector un tanque graduado, un flotador mueve la aguja de un indicador de carátula que marca el etanol total, una válvula de goteo drena al ritmo del hígado y una bandeja de sedimentos se oscurece con las bebidas oscuras. El aparato es continuo durante todo el reel; las escenas son estados de la misma máquina y los textos entran y salen con fundidos. La estética es de keynote: fondo claro, Inter Display, un solo acento azul, dos interludios en negro, sin flashes ni vibración.
 
 | Archivo | Qué contiene |
 |---|---|
-| `src/reel/script.ts` | Guion (`NARRATION`), versiones (`VARIANTS`) y tiempos palabra a palabra |
-| `src/reel/beats/` | Hooks, cuerpo (ley, misión, puertas, proceso, grave, reto) y cierres |
-| `src/reel/kit.tsx` | Stickers, texto que golpea, contadores, ráfagas, vibración, flechas y subtítulos estilo TikTok |
-| `src/reel/assets/` | Emojis Fluent (Microsoft, MIT) y mapa de Chile con 346 puntos (Natural Earth, dominio público) |
-| `scripts/build-reel-assets.mjs` | Regenera `src/reel/assets/` desde npm |
-| `scripts/build-reel-audio.mjs` | Sintetiza los SFX y una música de 120 BPM ajustada a las escenas (sin descargas ni licencias) |
+| `src/reel/script.ts` | Guion (`NARRATION`), fuentes por escena (`SOURCES`), versiones (`VARIANTS`), tiempos por palabra y por frase |
+| `src/reel/bench/model.ts` | Modelo puro: vertidos, drenaje, pieza iluminada, despiece y cámara por fotograma (`programOf`, `stateAt`) |
+| `src/reel/bench/view.ts`, `geometry.ts`, `Bench.tsx` | Mundo, piezas (64) en orden de pintor y el SVG del banco |
+| `src/reel/beats/Beats.tsx` | Titulares y notas de cada escena |
+| `src/reel/kit.tsx` | Tipografía keynote: titulares, subtítulos por frases, notas al pie y SFX |
+| `src/iso/` | Kit de Anatomy (`iso-kit.ts`, `iso.css`, `draw.tsx`) |
+| `scripts/build-reel-audio.mjs` | Sintetiza los SFX (clic, goteo, campana) y una música de 78 BPM sin batería ajustada a las escenas |
+| `scripts/generate-voice-elevenlabs.py` | Voz Jessica (ElevenLabs v3) por escena, con `--tempo` para quedar bajo 60 s |
 
 ```bash
+npm i
 npm run dev            # genera la música y abre Remotion Studio
+python3 scripts/generate-voice-elevenlabs.py --tempo 1.12   # voz (la clave la inyecta el entorno)
+node scripts/build-reel-audio.mjs                           # música ajustada a la voz
 npm run render:reels   # exporta las dos versiones y las comprime (~7 MB c/u)
-npm run reel:voice     # regenera la voz y ajusta la música a sus tiempos
 ```
 
-**Voz:** la narración usa la voz neuronal Piper "claude" (español de México, femenina, licencia Apache 2.0), que funciona sin internet una vez descargada. `npm run reel:voice` necesita `pip install piper-tts` y ffmpeg; la primera vez descarga el modelo (63 MB) en `.voices/`, que no se sube a git. El diccionario `LEXICON` de `scripts/generate-voice.py` corrige cómo se leen las siglas y los números ("OLN" → "o ele ene", "21.430" → "veintiún mil cuatrocientos treinta").
+Para revisar fotogramas: `npx remotion still src/index.ts ReelLinkedIn out/f.png --frame=40`; `BenchStill` y `BenchZoom` muestran solo el aparato (este último a 4000 px para recortes 4×). `node scripts/reel-starts.mjs` imprime el fotograma inicial de cada escena.
 
-Con voz, cada escena dura lo que dura su frase y los subtítulos se ajustan a ella. Verifica que el reel siga bajo 60 s (Studio muestra la duración) y, si se pasa, usa `python3 scripts/generate-voice.py --speed 1.2`.
-
-Para cambiar un texto, edita `NARRATION` en `src/reel/script.ts`. Las palabras entre `*asteriscos*` salen destacadas en amarillo. Las animaciones usan `cue("escena", "palabra")` para aparecer cuando se dice esa palabra; si borras una que alguna escena usa, la vista previa te muestra cuál falta.
+Para cambiar un texto, edita `NARRATION` en `src/reel/script.ts`. Las palabras entre `*asteriscos*` salen en azul en los subtítulos. El modelo y las escenas usan `cue("escena", "palabra")` para sincronizarse con la voz; si borras una palabra que alguien usa, la vista previa te muestra cuál falta.
 
 ## Video largo (OLNChile)
 

@@ -145,8 +145,9 @@ export const Sub: React.FC<{ text: string; at: number; until?: number; y: number
 
 // Phrases of 2 to 5 words, one at a time, in sync with the voice. The key
 // word is heavier and in the accent colour. No outline, no uppercase.
-export const Captions: React.FC<{ beat: BeatKey; y?: number; dark?: boolean }> = ({ beat, y = 1500, dark = false }) => {
+export const Captions: React.FC<{ beat: BeatKey; y?: number; dark?: boolean | number }> = ({ beat, y = 1500, dark: darkProp = false }) => {
   const frame = useCurrentFrame();
+  const dark = typeof darkProp === "number" ? frame < darkProp : darkProp;
   const phrases = getPhrases(beat);
   const index = [...phrases].reverse().findIndex((p) => frame >= p.start - 4);
   if (index < 0) return null;
@@ -186,7 +187,10 @@ export const Captions: React.FC<{ beat: BeatKey; y?: number; dark?: boolean }> =
 };
 
 // Footnote line: the source for this beat's facts, and the author.
-export const Footnote: React.FC<{ text: string; author?: string; dark?: boolean; y?: number }> = ({ text, author, dark = false, y = 1748 }) => (
+export const Footnote: React.FC<{ text: string; author?: string; dark?: boolean | number; y?: number }> = ({ text, author, dark: darkProp = false, y = 1748 }) => {
+  const frame = useCurrentFrame();
+  const dark = typeof darkProp === "number" ? frame < darkProp : darkProp;
+  return (
   <div
     style={{
       position: "absolute",
@@ -205,4 +209,5 @@ export const Footnote: React.FC<{ text: string; author?: string; dark?: boolean;
     <div>{text}</div>
     {author ? <div style={{ opacity: 0.8 }}>{author}</div> : null}
   </div>
-);
+  );
+};

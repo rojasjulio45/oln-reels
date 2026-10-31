@@ -8,7 +8,7 @@ cd "$(dirname "$0")/.."
 CRF="${1:-28}"
 for variant in linkedin instagram; do
   in="out/master-${variant}.mp4"
-  out="out/oln-reel-${variant}.mp4"
+  out="out/resaca-reel-${variant}.mp4"
   ffmpeg -loglevel error -y -i "$in" \
     -c:v libx264 -preset veryslow -tune animation -crf "$CRF" -pix_fmt yuv420p -profile:v high \
     -c:a aac -b:a 96k -ac 2 \

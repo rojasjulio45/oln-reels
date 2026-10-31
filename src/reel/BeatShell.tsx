@@ -10,7 +10,7 @@ import { Captions, Footnote, ease } from "./kit";
 export const BeatShell: React.FC<{
   beat: BeatKey;
   children?: React.ReactNode;
-  dark?: boolean;
+  dark?: boolean | number;
   captionsY?: number;
   fadeIn?: boolean;
 }> = ({ beat, children, dark = false, captionsY, fadeIn = true }) => {

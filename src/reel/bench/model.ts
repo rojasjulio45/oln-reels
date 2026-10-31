@@ -114,8 +114,9 @@ export function programOf(variant: Variant): Program {
   pours.push({ start: c("velocidad", "velocidad"), duration: sec(0.6), bottle: "beer", amount: 1 });
   lit.push({ from: starts.velocidad, to: end("velocidad"), part: "float" });
 
-  // Por qué: mixing, one after another, and the needle climbs past the mark.
+  // Por qué: the myth on black, then mixing, one after another, and the needle climbs.
   const mix = c("porque", "mezclar");
+  dark.push([starts.porque, mix - 4]);
   pours.push({ start: mix, duration: sec(0.7), bottle: "wine", amount: 0.7 });
   pours.push({ start: mix + sec(0.6), duration: sec(0.7), bottle: "whisky", amount: 0.7 });
   pours.push({ start: mix + sec(1.2), duration: sec(0.7), bottle: "beer", amount: 0.6 });

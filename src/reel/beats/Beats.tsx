@@ -125,10 +125,11 @@ const Velocidad: React.FC = () => {
 
 const Porque: React.FC = () => {
   const c = (s: string) => cue("porque", s);
+  const lift = c("mezclar") - 4;
   return (
-    <BeatShell beat="porque">
+    <BeatShell beat="porque" dark={lift}>
+      <Headline y={760} color={K.white} lines={[{ text: "El mito parece cierto.", at: 4, until: lift - 2, size: 132 }]} />
       <Headline y={250} lines={[{ text: "Se pierde la cuenta.", at: c("cuenta") - 10, accent: "cuenta", size: 108 }]} />
-      <Sub text="Por eso el mito parece cierto" at={c("mezclar") - 4} until={c("cuenta") - 12} y={380} />
       <Sfx name="click" at={c("mezclar")} volume={0.25} />
       <Sfx name="click" at={c("mezclar") + 18} volume={0.25} />
       <Sfx name="click" at={c("mezclar") + 36} volume={0.25} />
