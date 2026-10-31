@@ -32,7 +32,7 @@ const HookInstagram: React.FC = () => {
       <Headline
         y={250}
         lines={[
-          { text: "¿Cerveza y después vino\nda más resaca?", at: 8, until: c("no") + 4, size: 104 },
+          { text: "¿Cerveza y después\nvino da más resaca?", at: 8, until: c("no") + 4, size: 90 },
           { text: "No.", at: c("no") - 2, accent: "No.", size: 200 },
         ]}
       />
