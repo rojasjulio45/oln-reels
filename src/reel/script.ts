@@ -26,7 +26,7 @@ export const NARRATION = {
 
 export type BeatKey = keyof typeof NARRATION;
 
-export const AUTHOR = "Julio Rojas";
+export const AUTHOR = "JRP";
 
 // Footnote line per beat (small grey, like a keynote's legal line).
 export const SOURCES: Record<BeatKey, string> = {
