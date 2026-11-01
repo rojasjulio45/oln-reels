@@ -6,7 +6,7 @@ import { Bench } from "./bench/Bench";
 import { framingOf, type Camera } from "./bench/camera";
 import { programOf, stateAt } from "./bench/model";
 import { FontFaces, Grain } from "./Reel";
-import { DISPLAY, K, OLD, SERIF } from "./kit";
+import { K, OLD, SERIF } from "./kit";
 import { REEL_H, REEL_W, Variant } from "./script";
 
 // Cover frame for the grid and the TikTok/Reels thumbnail: the beer pouring
@@ -18,7 +18,7 @@ export const Cover: React.FC<{ variant: Variant; title?: string; kicker?: string
   const state = stateAt(program, 24);
   const cam: Camera = { azimuth: 36, elevation: 26, focus: [-108, -30, 150], zoom: 3.2, anchor: 0.78, shot: program.shots[0], settled: 1 };
   const framing = framingOf(cam);
-  const words = title ?? (variant === "linkedin" ? "90 personas.\nLa misma resaca." : "¿Mezclar da\nmás resaca?");
+  const words = title ?? (variant === "linkedin" ? "90 personas.\nMisma resaca." : "¿Mezclar da\nmás resaca?");
   const small = kicker ?? (variant === "linkedin" ? "Cerveza y vino, en los dos órdenes" : "Un ensayo clínico responde");
   return (
     <AbsoluteFill className="iso" data-theme="light" style={{ background: K.paper }}>
@@ -28,9 +28,8 @@ export const Cover: React.FC<{ variant: Variant; title?: string; kicker?: string
         <Bench state={state} P={framing.P} viewBox={framing.viewBox} width={REEL_W} height={REEL_H} />
       </AbsoluteFill>
       <AbsoluteFill style={{ background: `linear-gradient(to bottom, ${K.paper} 0%, ${K.paper} 30%, rgba(247,244,238,0) 50%, rgba(247,244,238,0) 78%, ${K.paper} 92%)` }} />
-      <div style={{ position: "absolute", left: 90, right: 90, top: 560, textAlign: "center", fontFamily: SERIF, fontWeight: 600, fontSize: 150, lineHeight: 1.0, letterSpacing: "-2px", color: K.ink, whiteSpace: "pre-line" }}>{words}</div>
+      <div style={{ position: "absolute", left: 90, right: 90, top: 560, textAlign: "center", fontFamily: SERIF, fontWeight: 600, fontSize: 136, lineHeight: 1.02, letterSpacing: "-2px", color: K.ink, whiteSpace: "pre-line" }}>{words}</div>
       <div style={{ position: "absolute", left: 120, right: 120, top: 920, textAlign: "center", fontFamily: OLD, fontStyle: "italic", fontSize: 50, color: K.accent }}>{small}</div>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 1410, textAlign: "center", fontFamily: DISPLAY, fontWeight: 500, fontSize: 34, color: K.grey }}>Julio Rojas</div>
       <Grain />
     </AbsoluteFill>
   );
