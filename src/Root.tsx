@@ -2,6 +2,7 @@ import { AbsoluteFill, Composition, Still } from "remotion";
 import { FPS, HEIGHT, WIDTH, getTotalDuration } from "./constants";
 import { OLNVideo } from "./OLNVideo";
 import { Reel } from "./reel/Reel";
+import { Cover } from "./reel/Cover";
 import { Bench } from "./reel/bench/Bench";
 import { programOf, stateAt } from "./reel/bench/model";
 import { framingOf } from "./reel/bench/camera";
@@ -45,6 +46,8 @@ export const RemotionRoot: React.FC = () => {
         width={REEL_W}
         height={REEL_H}
       />
+      <Still id="CoverInstagram" component={Cover} defaultProps={{ variant: "instagram" as const }} width={REEL_W} height={REEL_H} />
+      <Still id="CoverLinkedIn" component={Cover} defaultProps={{ variant: "linkedin" as const }} width={REEL_W} height={REEL_H} />
       <Still id="BenchStill" component={BenchStill} defaultProps={{ frame: 400, width: 1080 }} width={REEL_W} height={REEL_H} />
       <Still id="BenchZoom" component={BenchStill} defaultProps={{ frame: 400, width: 4000 }} width={4000} height={7112} />
       <Composition

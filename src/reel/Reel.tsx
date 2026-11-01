@@ -21,7 +21,7 @@ const FACES: Array<[string, string, number, string]> = [
   ["Old Standard TT", "normal", 400, "OldStandardTT-400-normal.woff2"],
   ["Old Standard TT", "normal", 700, "OldStandardTT-700-normal.woff2"],
 ];
-const FontFaces: React.FC = () => (
+export const FontFaces: React.FC = () => (
   <style>
     {FACES.map(([family, style, weight, file]) => `@font-face{font-family:'${family}';font-style:${style};font-weight:${weight};font-display:block;src:url('${staticFile(`fonts/${file}`)}') format('woff2');}`).join("\n")}
   </style>
@@ -39,7 +39,7 @@ const useFonts = () => {
 };
 
 // Paper grain: static noise, multiplied over everything, barely there.
-const Grain: React.FC = () => (
+export const Grain: React.FC = () => (
   <svg width={REEL_W} height={REEL_H} style={{ position: "absolute", inset: 0, mixBlendMode: "multiply", opacity: 0.09, pointerEvents: "none" }}>
     <filter id="grain">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" stitchTiles="stitch" />

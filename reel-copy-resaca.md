@@ -83,6 +83,40 @@ Checklist de hook (`virality`) que cumplen las dos versiones:
 
 ---
 
+## TikTok
+
+El archivo de Instagram sirve tal cual (9:16, 1080×1920, 53,7 s, H.264, sin marca de agua de otra plataforma). La interfaz de TikTok tapa el 20–25 % inferior y el 12 % derecho de la pantalla: los subtítulos por frases (78 % de alto) quedan justo encima, pero la línea de fuentes (91 %) queda bajo el texto del caption. Mantén el caption corto (dos líneas) para que la superposición suba lo menos posible, o pide la variante "zona segura" con el bloque de texto 220 px más arriba.
+
+**Caption (TikTok prioriza búsqueda: palabras clave en la primera frase):**
+
+> ¿Mezclar cerveza y vino da más resaca? Un ensayo clínico con 90 personas dice que no: lo que importa es cuánto alcohol entra y cuánto alcanza a salir 🔬 Fuentes en comentarios.
+>
+> #resaca #ciencia #mitos #alcohol #chile
+
+**Primer comentario (fuentes):** las mismas siete referencias del comentario de LinkedIn, en una sola lista.
+
+**Portada:** `videos/resaca-cover-instagram.png` (título en la banda central, libre de la interfaz y del recorte 3:4 del perfil).
+
+**Texto de portada en TikTok** (campo "Portada"): "¿Mezclar da más resaca?" o solo "No."
+
+**Cuándo:** entre 19:00 y 22:00 hora de Chile, martes a jueves, o domingo por la tarde; responde los comentarios de la primera hora.
+
+**Subtítulos:** el video ya lleva subtítulos por frases grabados. Para LinkedIn, sube además `videos/resaca-reel-linkedin.srt` (opción "Subtítulos" al cargar el video); para TikTok e Instagram no hace falta.
+
+---
+
+## Plan de publicación
+
+| Orden | Plataforma | Archivo | Portada | Texto | Hora sugerida |
+|---|---|---|---|---|---|
+| 1 | LinkedIn (video nativo, vertical) | `videos/resaca-reel-linkedin.mp4` + `resaca-reel-linkedin.srt` | `resaca-cover-linkedin.png` | Post de arriba; fuentes en el primer comentario, publicado de inmediato | martes a jueves, 7:30–9:00 |
+| 2 | Instagram Reels | `videos/resaca-reel-instagram.mp4` | `resaca-cover-instagram.png` (subir como portada, no elegir fotograma) | Caption + primer comentario con hashtags | mismo día, 12:00–14:00 o 19:00–21:00 |
+| 3 | TikTok | `videos/resaca-reel-instagram.mp4` | `resaca-cover-instagram.png` | Caption de TikTok, 5 hashtags | 19:00–22:00 |
+
+Notas: sube siempre el archivo original (no el reenviado por WhatsApp, que lo recomprime); en Instagram elige "Reels" y no "Publicación"; en LinkedIn activa "Mostrar en perfil" y responde cada comentario con una pregunta para alargar la conversación en las primeras dos horas.
+
+---
+
 ## Fuentes verificadas para el guion
 
 Numeración igual a la de las notas al pie del video. Cada cifra del guion sale de estas fuentes y se matiza donde la evidencia es acotada.
